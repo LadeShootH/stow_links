@@ -397,35 +397,49 @@ function initImpressum() { renderHeader("impressum"); renderFooter(); }
 function initDatenschutz() { renderHeader("datenschutz"); renderFooter(); }
 function initAbout() { renderHeader("about"); renderFooter(); }
 
-// ====== Router by filename ======
-// ====== Router (robust gegen Unterordner, Groß-/Kleinschreibung, Slash) ======
+// ====== Router (robust gegen Unterordner, Slash, Groß-/Kleinschreibung) ======
 (function () {
-  const path = location.pathname.toLowerCase();
-  let file = path.split("/").pop() || "index.html";
-  if (!file.includes(".")) file += ".html";           // erlaubt /events -> events.html
-  file = file.split("?")[0].split("#")[0];            // Query/Hash entfernen
-  const base = file.replace(/\.html$/, "");
+  const path = new URL(location.href).pathname.replace(/\/+$/, "").toLowerCase();
+  let base = path.split("/").pop() || "index";
+  if (base.endsWith(".html")) base = base.slice(0, -5);
 
-  const has = (sel) => document.querySelector(sel);
-
-  const run = () => {
-    switch (base) {
-      case "index":       return initHome();
-      case "about":       return initAbout();
-      case "events":      return initEvents();
-      case "event":       return initEventDetail();
-      case "join":        return initJoin();
-      case "contact":     return initContact();
-      case "impressum":   return initImpressum();
-      case "datenschutz": return initDatenschutz();
-      default:
-        // Fallback über DOM-Elemente, falls Dateiname unerwartet ist
-        if (has("#events-upcoming")) return initEvents();
-        if (has("#event-detail"))    return initEventDetail();
-        if (has("#join-form"))       return initJoin();
-        if (has("#contact-form"))    return initContact();
-        return initHome();
-    }
+  const byDom = () => {
+    if (document.querySelector("#events-upcoming")) return "events";
+    if (document.querySelector("#event-detail"))    return "event";
+    if (document.querySelector("#join-form"))       return "join";
+    if (document.querySelector("#contact-form"))    return "contact";
+    if (document.querySelector("#impressum"))       return "impressum";
+    if (document.querySelector("#datenschutz"))     return "datenschutz";
+    if (document.querySelector("#hero"))            return "index";
+    return null;
   };
-  run();
+
+  const byTitle = () => {
+    const t = (document.title || "").toLowerCase();
+    if (t.includes("events"))      return "events";
+    if (t.includes("event –"))     return "event";
+    if (t.includes("mitglied"))    return "join";
+    if (t.includes("kontakt"))     return "contact";
+    if (t.includes("impressum"))   return "impressum";
+    if (t.includes("datenschutz")) return "datenschutz";
+    if (t.includes("über") || t.includes("ueber")) return "about";
+    return null;
+  };
+
+  const page = ["index","about","events","event","join","contact","impressum","datenschutz"].includes(base)
+    ? base
+    : (byDom() || byTitle() || "index");
+
+  const map = {
+    index: initHome,
+    about: initAbout,
+    events: initEvents,
+    event: initEventDetail,
+    join: initJoin,
+    contact: initContact,
+    impressum: initImpressum,
+    datenschutz: initDatenschutz
+  };
+
+  (map[page] || initHome)();
 })();
