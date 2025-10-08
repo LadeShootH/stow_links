@@ -398,17 +398,34 @@ function initDatenschutz() { renderHeader("datenschutz"); renderFooter(); }
 function initAbout() { renderHeader("about"); renderFooter(); }
 
 // ====== Router by filename ======
+// ====== Router (robust gegen Unterordner, Groß-/Kleinschreibung, Slash) ======
 (function () {
-  const file = location.pathname.split("/").pop() || "index.html";
-  const map = {
-    "index.html": initHome,
-    "about.html": initAbout,
-    "events.html": initEvents,
-    "event.html": initEventDetail,
-    "join.html": initJoin,
-    "contact.html": initContact,
-    "impressum.html": initImpressum,
-    "datenschutz.html": initDatenschutz,
+  const path = location.pathname.toLowerCase();
+  let file = path.split("/").pop() || "index.html";
+  if (!file.includes(".")) file += ".html";           // erlaubt /events -> events.html
+  file = file.split("?")[0].split("#")[0];            // Query/Hash entfernen
+  const base = file.replace(/\.html$/, "");
+
+  const has = (sel) => document.querySelector(sel);
+
+  const run = () => {
+    switch (base) {
+      case "index":       return initHome();
+      case "about":       return initAbout();
+      case "events":      return initEvents();
+      case "event":       return initEventDetail();
+      case "join":        return initJoin();
+      case "contact":     return initContact();
+      case "impressum":   return initImpressum();
+      case "datenschutz": return initDatenschutz();
+      default:
+        // Fallback über DOM-Elemente, falls Dateiname unerwartet ist
+        if (has("#events-upcoming")) return initEvents();
+        if (has("#event-detail"))    return initEventDetail();
+        if (has("#join-form"))       return initJoin();
+        if (has("#contact-form"))    return initContact();
+        return initHome();
+    }
   };
-  (map[file] || initHome)();
+  run();
 })();
