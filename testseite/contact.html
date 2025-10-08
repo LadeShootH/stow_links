@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kontakt – STOW301 e.V.</title>
+  <meta name="theme-color" content="#0b1020"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { } }
+    }
+  </script>
+  <style>
+    .glass { backdrop-filter: blur(10px); }
+    .nav-link { position: relative; padding-bottom: .25rem; }
+    .nav-link[aria-current="page"] { color: white; }
+    .nav-link::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
+      background: linear-gradient(90deg, #ec4899, #a21caf);
+      transform: scaleX(0); transform-origin: left; transition: transform .25s ease;
+      border-radius: 999px;
+    }
+    .nav-link[aria-current="page"]::after { transform: scaleX(1); }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100 bg-slate-950">
+  <div id="header"></div>
+
+  <main class="py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4 md:px-6 grid md:grid-cols-2 gap-8">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Kontakt</h2>
+        <p class="mt-2 text-slate-300">Lass uns über dein Anliegen sprechen.</p>
+        <div class="mt-6 grid gap-3 text-slate-200">
+          <a class="flex items-center gap-2" href="mailto:info@stow301.de">✉ info@stow301.de</a>
+          <a class="flex items-center gap-2" href="tel:+491234567890">☎ +49 123 4567890</a>
+          <div class="flex items-center gap-2">📍 Musterstraße 1, 91301 Forchheim</div>
+        </div>
+      </div>
+      <div class="rounded-3xl shadow-sm bg-slate-900 border border-white/10 p-6">
+        <form class="grid gap-4" id="contact-form">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div><label class="text-sm text-slate-300">Vorname</label><input required class="mt-1 w-full px-3 py-2 rounded-xl bg-slate-800 border border-white/10 text-white" name="first" placeholder="Max"></div>
+            <div><label class="text-sm text-slate-300">Nachname</label><input required class="mt-1 w-full px-3 py-2 rounded-xl bg-slate-800 border border-white/10 text-white" name="last" placeholder="Mustermann"></div>
+          </div>
+          <div><label class="text-sm text-slate-300">E-Mail</label><input required type="email" class="mt-1 w-full px-3 py-2 rounded-xl bg-slate-800 border border-white/10 text-white" name="email" placeholder="max@example.com"></div>
+          <div><label class="text-sm text-slate-300">Nachricht</label><textarea required class="mt-1 w-full px-3 py-2 rounded-xl bg-slate-800 border border-white/10 text-white min-h-[120px]" name="message" placeholder="Deine Nachricht..."></textarea></div>
+          <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY" data-callback="onContactCaptcha"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
+            <div class="text-xs text-slate-400">Mit dem Senden akzeptierst du unsere Datenschutzhinweise.</div>
+            <button type="submit" class="px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 disabled:opacity-50" id="contact-submit">Senden</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <div id="footer"></div>
+  <script src="assets/site.js"></script>
+</body>
+</html>
