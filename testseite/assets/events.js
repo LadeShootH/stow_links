@@ -52,7 +52,7 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     id: "silent-disco-2025",
     title: "SILENT DISCO",
     date: "2025-01-31",
-    dateEND: "2025-02-01"
+    dateEND: "2025-02-01",
     venue: "Kellerwald Winterzauber",
     description: "Silent Disco am Kellerwald",
     longDescription: `❄️ SILENT DISCO beim Kellerwald WINTERZAUBER ❄️
