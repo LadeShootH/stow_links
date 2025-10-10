@@ -80,8 +80,7 @@ function eventCardHTML(e, isPast) {
           </div>
           <div class="sm:hidden mt-2">${statusPill(isPast)}</div>
           <div class="mt-2 grid gap-x-6 gap-y-2 sm:grid-flow-col sm:auto-cols-max text-sm text-slate-300">
-            ${e.date ? `<div class="flex items-center gap-2">🗓 ${fmtDate(e.date)}</div>` : ""}
-            ${(e.startTime || e.endTime) ? `<div class="flex items-center gap-2">⏰ ${e.startTime || ""} ${e.endTime ? `– ${e.endTime} Uhr` : ""}</div>` : ""}
+            ${e.date ? `<div class="flex items-center gap-2">🗓 ${fmtDateRange(e.date, endDateOf(e))}</div>` : ""}            ${(e.startTime || e.endTime) ? `<div class="flex items-center gap-2">⏰ ${e.startTime || ""} ${e.endTime ? `– ${e.endTime} Uhr` : ""}</div>` : ""}
             ${e.venue ? `<div class="flex items-center gap-2">📍 ${e.venue}</div>` : ""}
             ${e.music ? `<div class="flex items-center gap-2">🎵 ${e.music}</div>` : ""}
             ${isPast && e.stats?.guests !== undefined ? `<div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pink-500 inline-block"></span> ${e.stats.guests} Gäste</div>` : ""}
@@ -261,7 +260,7 @@ function initEventDetail() {
       <aside class="md:col-span-1">
         <h4 class="text-lg font-semibold text-pink-400">Event Informationen</h4>
         <ul class="mt-4 grid gap-3 text-sm text-slate-300">
-          ${e.date ? `<li class="flex items-center gap-2">🗓 <span><span class="text-slate-400">Datum</span><br>${fmtDateRange(e.date, endDateOf(e))}</span></li>` : ""}          ${e.venue ? `<li class="flex items-center gap-2">📍 <span><span class="text-slate-400">Ort</span><br>${e.venue}</span></li>` : ""}
+          ${e.date ? `<li class="flex items-center gap-2">🗓 <span><span class="text-slate-400">Datum</span><br>${fmtDateRange(e.date, endDateOf(e))}</span></li>` : ""}
           <li class="flex items-center gap-2">🎵 <span><span class="text-slate-400">Genre</span><br>${e.music || "—"}</span></li>
         </ul>
         <div class="mt-6">
@@ -271,6 +270,10 @@ function initEventDetail() {
       </aside>
     </div>
   `;
+const startDate = e.date;
+const endDate = endDateOf(e);
+const start = `${startDate}T${(e.startTime || "00:00")}:00+01:00`;
+const end   = `${endDate}T${(e.endTime || e.startTime || "00:00")}:00+01:00`;
   injectJSONLD(e);
 }
 
