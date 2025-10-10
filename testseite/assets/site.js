@@ -23,6 +23,9 @@ const BACKEND = {
 };
 
 // ====== Utils ======
+const endDateOf = (e) => e.dateEnd || e.date;
+const fmtDateRange = (a, b) => (a === b ? fmtDate(a) : `${fmtDate(a)} – ${fmtDate(b)}`);
+
 const qs = (s, el = document) => el.querySelector(s);
 const qsa = (s, el = document) => Array.from(el.querySelectorAll(s));
 const fmtDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" });
@@ -30,8 +33,12 @@ const parseDate = (iso) => { const d = new Date(`${iso}T00:00:00`); d.setHours(0
 
 function splitEvents(list) {
   const today = new Date(); today.setHours(0,0,0,0);
-  const upcoming = list.filter(e => e.date && parseDate(e.date) >= today).sort((a,b) => parseDate(a.date)-parseDate(b.date));
-  const past = list.filter(e => e.date && parseDate(e.date) < today).sort((a,b) => parseDate(b.date)-parseDate(a.date));
+  const upcoming = list
+    .filter(e => e.date && parseDate(endDateOf(e)) >= today)
+    .sort((a,b) => parseDate(a.date) - parseDate(b.date));          // nach Start sortieren
+  const past = list
+    .filter(e => e.date && parseDate(endDateOf(e)) < today)
+    .sort((a,b) => parseDate(endDateOf(b)) - parseDate(endDateOf(a))); // nach Ende sortieren
   return { upcoming, past, nextEvent: upcoming[0] || null, lastPast: past[0] || null };
 }
 
@@ -217,7 +224,7 @@ function initEventDetail() {
     return;
   }
   const today = new Date(); today.setHours(0,0,0,0);
-  const isPast = e.date ? parseDate(e.date) < today : false;
+  const isPast = e.date ? parseDate(endDateOf(e)) < today : false;
   const rating = e.stats && typeof e.stats.rating === "number" ? Math.max(0, Math.min(5, e.stats.rating)) : null;
 
   root.innerHTML = `
@@ -249,9 +256,7 @@ function initEventDetail() {
       <aside class="md:col-span-1">
         <h4 class="text-lg font-semibold text-pink-400">Event Informationen</h4>
         <ul class="mt-4 grid gap-3 text-sm text-slate-300">
-          ${e.date ? `<li class="flex items-center gap-2">🗓 <span><span class="text-slate-400">Datum</span><br>${fmtDate(e.date)}</span></li>` : ""}
-          ${(e.startTime || e.endTime) ? `<li class="flex items-center gap-2">⏰ <span><span class="text-slate-400">Zeit</span><br>${e.startTime || ""} ${e.endTime ? `– ${e.endTime} Uhr` : ""}</span></li>` : ""}
-          ${e.venue ? `<li class="flex items-center gap-2">📍 <span><span class="text-slate-400">Ort</span><br>${e.venue}</span></li>` : ""}
+          ${e.date ? `<li class="flex items-center gap-2">🗓 <span><span class="text-slate-400">Datum</span><br>${fmtDateRange(e.date, endDateOf(e))}</span></li>` : ""}          ${e.venue ? `<li class="flex items-center gap-2">📍 <span><span class="text-slate-400">Ort</span><br>${e.venue}</span></li>` : ""}
           <li class="flex items-center gap-2">🎵 <span><span class="text-slate-400">Genre</span><br>${e.music || "—"}</span></li>
         </ul>
         <div class="mt-6">
