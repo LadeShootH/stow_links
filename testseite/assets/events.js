@@ -47,5 +47,26 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     longDescription: "",
     music: "Rock, Indie",
     stats: { guests: 110, rating: 3.8 }
+  },
+    {
+    id: "silent-disco-2025",
+    title: "SILENT DISCO",
+    date: "2025-01-31",
+    dateEND: "2025-02-01"
+    venue: "Kellerwald Winterzauber",
+    description: "Silent Disco am Kellerwald",
+    longDescription: `❄️ SILENT DISCO beim Kellerwald WINTERZAUBER ❄️
+    
+    Am 31. Januar & 01. Februar verwandelte sich der obere Festplatz im Kellerwald in einen technoiden Spielplatz mit mehreren DJs, die feinsten Techno, House und Hip-Hop direkt in euere Ohren zauberten.
+    Auf drei verschiedenen Kanälen spielten mehrere DJs treibende Musik, nur für euch! 🥶
+    Was wir im Angebot hatten:
+    31.01.2025:
+    18 Uhr: DJ Curse (Tech House)
+    20 Uhr: flo.meins (EDM)
+    01.02.2025:
+    18 Uhr: Alan Oey (Techno)
+    20 Uhr: DJ YOYI (Trance)`,
+    music: "Techno, House & Hip-Hop",
+    stats: { guests: 150, rating: 4.2 }
   }
 ];
