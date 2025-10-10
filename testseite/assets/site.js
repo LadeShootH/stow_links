@@ -249,7 +249,9 @@ function initEventDetail() {
     <div class="mt-10 grid md:grid-cols-3 gap-6 md:gap-10">
       <div class="md:col-span-2">
         <h2 class="text-2xl font-bold text-pink-400">Event Details</h2>
-        ${e.longDescription ? `<div class="prose prose-invert max-w-none mt-4 text-slate-300"><p>${e.longDescription.replace(/\\n/g,"<br>")}</p></div>` : (e.description ? `<p class="mt-4 text-slate-300">${e.description}</p>` : "")}
+				${e.longDescription 
+        ? `<div class="prose prose-invert max-w-none mt-4 text-slate-300 whitespace-pre-line">${e.longDescription}</div>` 
+        : (e.description ? `<p class="mt-4 text-slate-300">${e.description}</p>` : "")}
         ${isPast ? `
           <div class="mt-10">
             <h4 class="text-lg font-semibold text-pink-400">Event Bewertung</h4>
