@@ -13,7 +13,6 @@ const DOCS = [
   { key: "datenschutzordnung", label: "Datenschutzordnung", href: "docs/datenschutzordnung.pdf" },
 ];
 
-const EVENTS = window.EVENTS || [];
 
 const USE_BACKEND = false; // set true and configure BACKEND_* below to actually upload/verify
 const BACKEND = {
@@ -23,6 +22,10 @@ const BACKEND = {
 };
 
 // ====== Utils ======
+// Events auslagern
+const EVENTS = window.EVENTS || [];
+
+// Mehrtages-Support
 const endDateOf = (e) => e.dateEnd || e.date;
 const fmtDateRange = (a, b) => (a === b ? fmtDate(a) : `${fmtDate(a)} – ${fmtDate(b)}`);
 
@@ -35,10 +38,12 @@ function splitEvents(list) {
   const today = new Date(); today.setHours(0,0,0,0);
   const upcoming = list
     .filter(e => e.date && parseDate(endDateOf(e)) >= today)
-    .sort((a,b) => parseDate(a.date) - parseDate(b.date));          // nach Start sortieren
+    .sort((a,b) => parseDate(a.date) - parseDate(b.date)); // Startdatum
+
   const past = list
     .filter(e => e.date && parseDate(endDateOf(e)) < today)
-    .sort((a,b) => parseDate(endDateOf(b)) - parseDate(endDateOf(a))); // nach Ende sortieren
+    .sort((a,b) => parseDate(endDateOf(b)) - parseDate(endDateOf(a))); // Enddatum
+
   return { upcoming, past, nextEvent: upcoming[0] || null, lastPast: past[0] || null };
 }
 
