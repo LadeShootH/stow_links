@@ -53,6 +53,7 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     title: "SILENT DISCO",
     date: "2025-01-31",
     dateEND: "2025-02-01",
+    cover: "https://imgur.com/a/7B45qE4",
     venue: "Kellerwald Winterzauber",
     description: "Silent Disco am Kellerwald",
     longDescription: `❄️ SILENT DISCO beim Kellerwald WINTERZAUBER ❄️
