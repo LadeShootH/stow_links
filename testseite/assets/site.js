@@ -281,23 +281,32 @@ const end   = `${endDate}T${(e.endTime || e.startTime || "00:00")}:00+01:00`;
 
 function initJoin() {
   renderHeader("join"); renderFooter();
-  const cont = qs("#join-docs");
-  cont.innerHTML = DOCS.map(d => `
-    <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-3">
-      <div class="text-slate-200 text-sm">${d.label}</div>
-      <div class="flex gap-2">
-        <a href="${d.href}" target="_blank" rel="noreferrer" class="px-3 py-2 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white">Ansehen</a>
-        <a href="${d.href}" download class="px-3 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500">Download</a>
-      </div>
-    </div>`).join("");
 
-  const form = qs("#join-form"); const note = qs("#join-upload-note"); const submitBtn = qs("#join-submit");
+  const cont = qs("#join-docs");
+  if (cont) {
+    cont.innerHTML = DOCS.map(d => `
+      <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-3">
+        <div class="text-slate-200 text-sm">${d.label}</div>
+        <div class="flex gap-2">
+          <a href="${d.href}" target="_blank" rel="noreferrer" class="px-3 py-2 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white">Ansehen</a>
+          <a href="${d.href}" download class="px-3 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500">Download</a>
+        </div>
+      </div>`).join("");
+  }
+
+  const form = qs("#join-form");
+  if (!form) return;
+
+  const note = qs("#join-upload-note");
+  const submitBtn = qs("#join-submit");
   let captchaToken = "";
   window.onJoinCaptcha = (token) => { captchaToken = token; };
-  form.addEventListener("change", (e) => {
+
+  form.addEventListener("change", () => {
     const hasFiles = (form.elements["files"] && form.elements["files"].files && form.elements["files"].files.length > 0);
-    note.hidden = !hasFiles || USE_BACKEND;
+    if (note) note.hidden = !hasFiles || USE_BACKEND;
   });
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const fd = new FormData(form);
@@ -315,7 +324,7 @@ function initJoin() {
     }
 
     const files = form.elements["files"]?.files || [];
-    if (files.length > 0) return alert("Dateiupload per Mail nicht möglich. Bitte Backend aktivieren oder ohne Upload per E‑Mail senden.");
+    if (files.length > 0) return alert("Dateiupload per Mail nicht möglich. Bitte Backend aktivieren oder ohne Upload per E-Mail senden.");
     const subject = `Mitgliedsantrag – Ich will Forchheims Kultur stärken!`;
     const body =
 `Titel: Ich will Forchheims Kultur stärken!
