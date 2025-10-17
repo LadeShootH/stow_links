@@ -279,61 +279,44 @@ const end   = `${endDate}T${(e.endTime || e.startTime || "00:00")}:00+01:00`;
   injectJSONLD(e);
 }
 
-function initJoin() {
-  renderHeader("join"); renderFooter();
+function initContact() {
+  renderHeader("contact"); renderFooter();
 
-  const cont = qs("#join-docs");
-  if (cont) {
-    cont.innerHTML = DOCS.map(d => `
-      <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-3">
-        <div class="text-slate-200 text-sm">${d.label}</div>
-        <div class="flex gap-2">
-          <a href="${d.href}" target="_blank" rel="noreferrer" class="px-3 py-2 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white">Ansehen</a>
-          <a href="${d.href}" download class="px-3 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500">Download</a>
-        </div>
-      </div>`).join("");
-  }
+  const form = qs("#contact-form");
+  if (!form) return; // kein Formular vorhanden → nichts weiter tun
 
-  const form = qs("#join-form");
-  if (!form) return;
-
-  const note = qs("#join-upload-note");
-  const submitBtn = qs("#join-submit");
+  const submitBtn = qs("#contact-submit");
   let captchaToken = "";
-  window.onJoinCaptcha = (token) => { captchaToken = token; };
-
-  form.addEventListener("change", () => {
-    const hasFiles = (form.elements["files"] && form.elements["files"].files && form.elements["files"].files.length > 0);
-    if (note) note.hidden = !hasFiles || USE_BACKEND;
-  });
+  window.onContactCaptcha = (token) => { captchaToken = token; };
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const fd = new FormData(form);
-    if (!fd.get("accept")) return alert("Bitte akzeptiere die Ordnungen.");
     if (!captchaToken) return alert("Bitte reCAPTCHA bestätigen.");
-
     if (USE_BACKEND) {
-      fd.append("recaptcha", captchaToken);
       try {
-        const res = await fetch(BACKEND.join, { method: "POST", body: fd });
+        const res = await fetch(BACKEND.contact, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            first: fd.get("first"),
+            last: fd.get("last"),
+            email: fd.get("email"),
+            message: fd.get("message"),
+            recaptcha: captchaToken
+          })
+        });
         if (!res.ok) throw new Error("failed");
-        alert("Antrag gesendet.");
+        alert("Nachricht gesendet.");
       } catch { alert("Senden fehlgeschlagen."); }
       return;
     }
-
-    const files = form.elements["files"]?.files || [];
-    if (files.length > 0) return alert("Dateiupload per Mail nicht möglich. Bitte Backend aktivieren oder ohne Upload per E-Mail senden.");
-    const subject = `Mitgliedsantrag – Ich will Forchheims Kultur stärken!`;
-    const body =
-`Titel: Ich will Forchheims Kultur stärken!
-Name: ${fd.get("first")} ${fd.get("last")}
+    const subject = `Kontakt: ${fd.get("first")} ${fd.get("last")}`.trim();
+    const body = `Name: ${fd.get("first")} ${fd.get("last")}
 E-Mail: ${fd.get("email")}
-Telefon: ${fd.get("phone") || ""}
 
-Motivation:
-${fd.get("motivation") || ""}`;
+Nachricht:
+${fd.get("message")}`;
     location.href = `mailto:${CLUB.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 }
