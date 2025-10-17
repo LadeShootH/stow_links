@@ -280,10 +280,11 @@ const end   = `${endDate}T${(e.endTime || e.startTime || "00:00")}:00+01:00`;
 }
 
 function initContact() {
-  renderHeader("contact"); renderFooter();
+  renderHeader("contact");
+  renderFooter();
 
   const form = qs("#contact-form");
-  if (!form) return; // kein Formular vorhanden → nichts weiter tun
+  if (!form) return; // Seite hat nur den Button, kein Formular → fertig
 
   const submitBtn = qs("#contact-submit");
   let captchaToken = "";
@@ -305,36 +306,6 @@ function initContact() {
             message: fd.get("message"),
             recaptcha: captchaToken
           })
-        });
-        if (!res.ok) throw new Error("failed");
-        alert("Nachricht gesendet.");
-      } catch { alert("Senden fehlgeschlagen."); }
-      return;
-    }
-    const subject = `Kontakt: ${fd.get("first")} ${fd.get("last")}`.trim();
-    const body = `Name: ${fd.get("first")} ${fd.get("last")}
-E-Mail: ${fd.get("email")}
-
-Nachricht:
-${fd.get("message")}`;
-    location.href = `mailto:${CLUB.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  });
-}
-
-function initContact() {
-  renderHeader("contact"); renderFooter();
-  const form = qs("#contact-form"); const submitBtn = qs("#contact-submit"); let captchaToken = "";
-  window.onContactCaptcha = (token) => { captchaToken = token; };
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const fd = new FormData(form);
-    if (!captchaToken) return alert("Bitte reCAPTCHA bestätigen.");
-    if (USE_BACKEND) {
-      try {
-        const res = await fetch(BACKEND.contact, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ first: fd.get("first"), last: fd.get("last"), email: fd.get("email"), message: fd.get("message"), recaptcha: captchaToken })
         });
         if (!res.ok) throw new Error("failed");
         alert("Nachricht gesendet.");
