@@ -38,24 +38,15 @@
           <div class="flex items-center gap-2">📍 Musterstraße 1, 91301 Forchheim</div>
         </div>
       </div>
-      <div class="rounded-3xl shadow-sm bg-slate-900 border border-white/10 p-6">
-        <form class="grid gap-4" id="contact-form">
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div><label class="text-sm text-slate-300">Vorname</label><input required class="mt-1 w-full px-3 py-2 rounded-xl bg-slate-800 border border-white/10 text-white" name="first" placeholder="Max"></div>
-            <div><label class="text-sm text-slate-300">Nachname</label><input required class="mt-1 w-full px-3 py-2 rounded-xl bg-slate-800 border border-white/10 text-white" name="last" placeholder="Mustermann"></div>
-          </div>
-          <div><label class="text-sm text-slate-300">E-Mail</label><input required type="email" class="mt-1 w-full px-3 py-2 rounded-xl bg-slate-800 border border-white/10 text-white" name="email" placeholder="max@example.com"></div>
-          <div><label class="text-sm text-slate-300">Nachricht</label><textarea required class="mt-1 w-full px-3 py-2 rounded-xl bg-slate-800 border border-white/10 text-white min-h-[120px]" name="message" placeholder="Deine Nachricht..."></textarea></div>
-          <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY" data-callback="onContactCaptcha"></div>
-          <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
-            <div class="text-xs text-slate-400">Mit dem Senden akzeptierst du unsere Datenschutzhinweise.</div>
-            <button type="submit" class="px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 disabled:opacity-50" id="contact-submit">Senden</button>
-          </div>
-        </form>
-      </div>
+      <div class="rounded-3xl shadow-sm bg-slate-900 border border-white/10 p-6 text-center">
+  <a class="inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white"
+    href="mailto:info@stow301.de?subject=Kontaktanfrage%20%C3%BCber%20Website&body=Name%3A%20%0AE-Mail%3A%20%0ANachricht%3A%20">
+    E-Mail senden
+  </a>
+  <p class="text-xs text-slate-400 mt-3">Wir melden uns schnellstmöglich zurück.</p>
+</div>
     </div>
   </main>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   <div id="footer"></div>
   <script src="./assets/site.js?v=3"></script>
