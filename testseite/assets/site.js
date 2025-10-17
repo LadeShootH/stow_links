@@ -326,38 +326,12 @@ function initImpressum() { renderHeader("impressum"); renderFooter(); }
 function initDatenschutz() { renderHeader("datenschutz"); renderFooter(); }
 function initAbout() { renderHeader("about"); renderFooter(); }
 
-// ====== Router (robust gegen Unterordner, Slash, Groß-/Kleinschreibung) ======
+// ====== Router – erkennt data-page, /contact ohne .html, DOM-Fallback ======
 (function () {
+  const hinted = (document.body && document.body.dataset && document.body.dataset.page) || "";
   const path = new URL(location.href).pathname.replace(/\/+$/, "").toLowerCase();
   let base = path.split("/").pop() || "index";
   if (base.endsWith(".html")) base = base.slice(0, -5);
-
-  const byDom = () => {
-    if (document.querySelector("#events-upcoming")) return "events";
-    if (document.querySelector("#event-detail"))    return "event";
-    if (document.querySelector("#join-form"))       return "join";
-    if (document.querySelector("#contact-form"))    return "contact";
-    if (document.querySelector("#impressum"))       return "impressum";
-    if (document.querySelector("#datenschutz"))     return "datenschutz";
-    if (document.querySelector("#hero"))            return "index";
-    return null;
-  };
-
-  const byTitle = () => {
-    const t = (document.title || "").toLowerCase();
-    if (t.includes("events"))      return "events";
-    if (t.includes("event –"))     return "event";
-    if (t.includes("mitglied"))    return "join";
-    if (t.includes("kontakt"))     return "contact";
-    if (t.includes("impressum"))   return "impressum";
-    if (t.includes("datenschutz")) return "datenschutz";
-    if (t.includes("über") || t.includes("ueber")) return "about";
-    return null;
-  };
-
-  const page = ["index","about","events","event","join","contact","impressum","datenschutz"].includes(base)
-    ? base
-    : (byDom() || byTitle() || "index");
 
   const map = {
     index: initHome,
@@ -370,5 +344,18 @@ function initAbout() { renderHeader("about"); renderFooter(); }
     datenschutz: initDatenschutz
   };
 
-  (map[page] || initHome)();
+  const byDom = () => {
+    if (document.querySelector("#events-upcoming")) return "events";
+    if (document.querySelector("#event-detail"))    return "event";
+    if (document.querySelector("#join-docs"))       return "join";
+    if (document.querySelector("#contact-form"))    return "contact";
+    if (document.querySelector("#hero"))            return "index";
+    return null;
+  };
+
+  const known = ["index","about","events","event","join","contact","impressum","datenschutz"];
+  const page = (hinted && map[hinted]) ? hinted
+             : (known.includes(base) ? base : (byDom() || "index"));
+
+  (map[page] || map.index)();
 })();
