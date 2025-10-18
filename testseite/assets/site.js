@@ -124,12 +124,13 @@ function injectJSONLD(event) {
 // ====== Header/Footer ======
 function renderHeader(active) {
   const nav = [
-    { id: "home", label: "Home", href: "index.html" },
-    { id: "about", label: "Über", href: "about.html" },
-    { id: "events", label: "Events", href: "events.html" },
-    { id: "join", label: "Mitglied werden", href: "join.html" },
-    { id: "contact", label: "Kontakt", href: "contact.html" },
-  ];
+  { id: "home", label: "Home", href: "index.html" },
+  { id: "about", label: "Über", href: "about.html" },
+  { id: "events", label: "Events", href: "events.html" },
+  { id: "artists", label: "Künstlerförderung", href: "artists.html" },
+  { id: "join", label: "Mitglied werden", href: "join.html" },
+  { id: "contact", label: "Kontakt", href: "contact.html" },
+];
   const header = qs("#header");
   header.innerHTML = `
   <header class="sticky top-0 z-50 border-b border-white/10 backdrop-blur supports-[backdrop-filter]:bg-slate-950/60">
@@ -279,6 +280,11 @@ const end   = `${endDate}T${(e.endTime || e.startTime || "00:00")}:00+01:00`;
   injectJSONLD(e);
 }
 
+function initArtists() {
+  renderHeader("artists");
+  renderFooter();
+}
+
 function initJoin() {
   renderHeader("join"); renderFooter();
 
@@ -405,16 +411,17 @@ function initAbout() { renderHeader("about"); renderFooter(); }
     ? base
     : (byDom() || byTitle() || "index");
 
-  const map = {
-    index: initHome,
-    about: initAbout,
-    events: initEvents,
-    event: initEventDetail,
-    join: initJoin,
-    contact: initContact,
-    impressum: initImpressum,
-    datenschutz: initDatenschutz
-  };
+	const map = {
+  	index: initHome,
+  	about: initAbout,
+  	events: initEvents,
+  	event: initEventDetail,
+  	join: initJoin,
+  	contact: initContact,
+  	impressum: initImpressum,
+  	datenschutz: initDatenschutz,
+ 		artists: initArtists
+	};
 
   (map[page] || initHome)();
 })();
