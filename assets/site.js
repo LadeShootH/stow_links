@@ -7,10 +7,10 @@ const CLUB = {
 };
 
 const DOCS = [
-  { key: "mitgliedsantrag", label: "Mitgliedsantrag", href: "ressources/Mitgliedsantrag.pdf" },
-  { key: "satzung", label: "Vereinssatzung", href: "ressources/STOW301eV_Vereinssatzung.pdf" },
-  { key: "beitragsordnung", label: "Beitragsordnung", href: "ressources/Beitragsordnung_STOW301.pdf" },
-  { key: "datenschutzordnung", label: "Datenschutzordnung", href: "ressources/Datenschutzordnung_STOW301.pdf" },
+  { key: "mitgliedsantrag", label: "Mitgliedsantrag", href: "/ressources/Mitgliedsantrag.pdf" },
+  { key: "satzung", label: "Vereinssatzung", href: "/ressources/STOW301eV_Vereinssatzung.pdf" },
+  { key: "beitragsordnung", label: "Beitragsordnung", href: "/ressources/Beitragsordnung_STOW301.pdf" },
+  { key: "datenschutzordnung", label: "Datenschutzordnung", href: "/ressources/Datenschutzordnung_STOW301.pdf" },
 ];
 
 
