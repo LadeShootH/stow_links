@@ -387,6 +387,7 @@ function initAbout() { renderHeader("about"); renderFooter(); }
   const byDom = () => {
     if (document.querySelector("#events-upcoming")) return "events";
     if (document.querySelector("#event-detail"))    return "event";
+	if (document.querySelector('[data-page="artists"]')) return "artists";
     if (document.querySelector("#join-form"))       return "join";
     if (document.querySelector("#contact-form"))    return "contact";
     if (document.querySelector("#impressum"))       return "impressum";
@@ -420,7 +421,7 @@ function initAbout() { renderHeader("about"); renderFooter(); }
   	contact: initContact,
   	impressum: initImpressum,
   	datenschutz: initDatenschutz,
- 		artists: initArtists
+ 	artists: initArtists
 	};
 
   (map[page] || initHome)();
