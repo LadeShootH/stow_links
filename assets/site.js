@@ -29,6 +29,9 @@ const EVENTS = window.EVENTS || [];
 const endDateOf = (e) => e.dateEnd || e.date;
 const fmtDateRange = (a, b) => (a === b ? fmtDate(a) : `${fmtDate(a)} – ${fmtDate(b)}`);
 
+const fmtTime = (t) => (t || "").replace(/^(\d{1,2}):(\d{2}).*$/, "$1:$2");
+const fmtTimeRange = (a, b) => (a && b ? `${fmtTime(a)} – ${fmtTime(b)}` : (a || b ? fmtTime(a || b) : ""));
+
 const qs = (s, el = document) => el.querySelector(s);
 const qsa = (s, el = document) => Array.from(el.querySelectorAll(s));
 const fmtDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" });
@@ -263,9 +266,26 @@ function initEventDetail() {
       <aside class="md:col-span-1">
         <h4 class="text-lg font-semibold text-pink-400">Event Informationen</h4>
         <ul class="mt-4 grid gap-3 text-sm text-slate-300">
-          ${e.date ? `<li class="flex items-center gap-2">🗓 <span><span class="text-slate-400">Datum</span><br>${fmtDateRange(e.date, endDateOf(e))}</span></li>` : ""}
-          <li class="flex items-center gap-2">🎵 <span><span class="text-slate-400">Genre</span><br>${e.music || "—"}</span></li>
-        </ul>
+  				${e.date ? `
+    			<li class="flex items-center gap-2">
+      		🗓 <span><span class="text-slate-400">Datum</span><br>${e.dateEnd && e.dateEnd !== e.date ? `${fmtDate(e.date)} – ${fmtDate(e.dateEnd)}` : fmtDate(e.date)}</span>
+    			</li>` : ""}
+
+  				${e.startTime || e.endTime ? `
+    			<li class="flex items-center gap-2">
+      		⏰ <span><span class="text-slate-400">Uhrzeit</span><br>${e.startTime || ""}${e.endTime ? ` – ${e.endTime}` : ""}</span>
+    			</li>` : ""}
+
+  				${e.venue ? `
+    			<li class="flex items-center gap-2">
+      		📍 <span><span class="text-slate-400">Location</span><br>${e.venue}</span>
+    			</li>` : ""}
+
+  				${e.genre ? `
+    			<li class="flex items-center gap-2">
+      		🎶 <span><span class="text-slate-400">Genre</span><br>${e.genre}</span>
+    			</li>` : ""}
+				</ul>
         <div class="mt-6">
           ${isPast ? `<a href="${e.galleryUrl || CLUB.instagram}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-100 w-full">Fotos ansehen</a>`
                    : (e.ticketsUrl ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 w-full">Tickets kaufen</a>` : "")}
