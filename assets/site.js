@@ -265,7 +265,7 @@ function initEventDetail() {
       </div>
       <aside class="md:col-span-1">
         <h4 class="text-lg font-semibold text-pink-400">Event Informationen</h4>
-        <ul class="mt-4 grid gap-3 text-sm text-slate-300">
+        <ul class="mt-6 grid gap-3 text-sm">
   				${e.date ? `
     			<li class="flex items-center gap-2">
       		🗓 <span><span class="text-slate-400">Datum</span><br>${e.dateEnd && e.dateEnd !== e.date ? `${fmtDate(e.date)} – ${fmtDate(e.dateEnd)}` : fmtDate(e.date)}</span>
