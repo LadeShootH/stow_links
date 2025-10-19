@@ -72,7 +72,7 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     01.02.2025:
     - 18 Uhr: Alan Oey (Techno)
     - 20 Uhr: DJ YOYI (Trance)`,
-    music: "Techno, House & Hip-Hop",
+    music: "EDM & Hip-Hop",
     stats: { guests: 150, rating: 4.2 }
   }
 ];
