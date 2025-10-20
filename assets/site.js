@@ -298,6 +298,48 @@ const endDate = endDateOf(e);
 const start = `${startDate}T${(e.startTime || "00:00")}:00+01:00`;
 const end   = `${endDate}T${(e.endTime || e.startTime || "00:00")}:00+01:00`;
   injectJSONLD(e);
+  
+  document.title = `${e.title} – STOW301 e.V.`;
+const metaDesc = document.querySelector('meta[name="description"]');
+if (metaDesc) {
+  metaDesc.setAttribute("content", `${e.title} in ${e.venue} – ${fmtDate(e.date)}. ${e.genre || "Event"} von STOW301 e.V.`);
+} else {
+  const m = document.createElement("meta");
+  m.name = "description";
+  m.content = `${e.title} in ${e.venue} – ${fmtDate(e.date)}. ${e.genre || "Event"} von STOW301 e.V.`;
+  document.head.appendChild(m);
+}
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": e.title,
+  "startDate": `${e.date}T${e.startTime || "20:00"}`,
+  "endDate": `${e.dateEnd || e.date}T${e.endTime || e.startTime || "23:59"}`,
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": e.venue,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Forchheim",
+      "addressRegion": "BY",
+      "addressCountry": "DE"
+    }
+  },
+  "image": e.image ? [e.image] : ["https://stow301.de/assets/social-preview.jpg"],
+  "description": e.longDescription || e.title,
+  "organizer": {
+    "@type": "Organization",
+    "name": "STOW301 e.V.",
+    "url": "https://stow301.de"
+  }
+};
+
+const script = document.createElement("script");
+script.type = "application/ld+json";
+script.textContent = JSON.stringify(ld);
+document.head.appendChild(script);
 }
 
 function initArtists() {
