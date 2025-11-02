@@ -16,6 +16,7 @@ Halloween in Forchheim wird legendär! DJ flo.meins bringt euch die besten Beats
 
 Gratis Getränk deiner Wahl bei Verkleidung!🍹`,
     ticketsUrl: "https://vertigo-nights.de/halloween/6",
+    stats: { guests: 120, rating: 4.7 },
     cover: ""
   },
   {
@@ -38,17 +39,28 @@ Ein riesiges Dankeschön an alle, die gekommen sind, um mit uns die erste Vertig
 
 Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur der Anfang. Vertigo Nights wird weiter wachsen, größer werden und noch mehr besondere Momente schaffen. 🚀`,
     music: "Clubsounds",
-    stats: { guests: 85, rating: 4.0 }
+    stats: { guests: 85, rating: 4.0 },
+    cover: "https://stow301.de/images/events/vertigo-opening.png"
   },
   {
     id: "fostival-2025",
     title: "FOstival 2025",
     date: "2025-06-28",
+    startTime: "14:00",
+    endTime: "22:00",
     venue: "KulturSommerQuartier",
-    description: "",
-    longDescription: "",
+    description: "Jugendfestival Forchheim",
+    longDescription: `Das FOstival ging 2025 in die dritte Runde – dieses Mal im Kultursommerquartier beim Königsbad.
+    Auf Jugendliche ab 12 Jahren warteten Angebote für die Freizeitgestaltung, Spiele, Kunst und viel Musik. 🎨
+    Ab 14 Uhr konnten Jugendliche auf dem Gelände gemeinsam feiern oder einfach chillen. 
+    Ab 17 Uhr wurden verschiedene Music-Acts zum Tanzen eingeladen. Bis 22 Uhr konnte dann gemeinsam gefeiert werden. 💃
+    Folgende Bands hat STOW301 euch mitgebracht:
+    - Left Fudge
+    - SYN
+    - freaky vanilla`,
     music: "Rock, Indie",
-    stats: { guests: 110, rating: 3.8 }
+    stats: { guests: 110, rating: 3.8 },
+    cover: "https://stow301.de/images/events/fostival25.png"
   },
     {
     id: "silent-disco-2025",
