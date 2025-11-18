@@ -1,6 +1,24 @@
 // assets/events.js
 window.EVENTS = [
   {
+    id: "vertigo-silvester-2025",
+    title: "VERTIGO Silvester Party",
+    date: "2025-12-31",
+    startTime: "21:00",
+    endTime: "03:00",
+    venue: "Eventvilla",
+    address: "",
+    music: "2000er & 2010er",
+    description: "VERTIGO SILVESTER PARTY🎆",
+    longDescription: `SILVESTER 2025 – DIE 2000er & 2010er PARTY DES JAHRES! 🎆🎉
+
+Feier mit uns den Jahreswechsel zu den besten Hits der 2000er und 2010er! DJ Curse sorgt im Main Set für unvergessliche Vibes, während DI.FFO euch mit seinem Pre-Act perfekt auf die Nacht einstimmt. Erlebe ein XXL-Feuerwerk, sichere dir Gratis Shots und finde mit unseren Beziehungsbändern vielleicht sogar dein Perfect Match fürs neue Jahr!
+
+Lass das alte Jahr hinter dir und starte 2026 mit einem Knall – Party, Beats und Erinnerungen, die bleiben! 🥂✨,
+    ticketsUrl: "https://vertigo-nights.de/silvester/23pna",
+    cover: ""
+  },
+  {
     id: "vertigo-halloween-2025",
     title: "VERTIGO Halloween Party",
     date: "2025-10-31",
