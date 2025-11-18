@@ -14,7 +14,7 @@ window.EVENTS = [
 
 Feier mit uns den Jahreswechsel zu den besten Hits der 2000er und 2010er! DJ Curse sorgt im Main Set für unvergessliche Vibes, während DI.FFO euch mit seinem Pre-Act perfekt auf die Nacht einstimmt. Erlebe ein XXL-Feuerwerk, sichere dir Gratis Shots und finde mit unseren Beziehungsbändern vielleicht sogar dein Perfect Match fürs neue Jahr!
 
-Lass das alte Jahr hinter dir und starte 2026 mit einem Knall – Party, Beats und Erinnerungen, die bleiben! 🥂✨,
+Lass das alte Jahr hinter dir und starte 2026 mit einem Knall – Party, Beats und Erinnerungen, die bleiben! 🥂✨`,
     ticketsUrl: "https://vertigo-nights.de/silvester/23pna",
     cover: ""
   },
