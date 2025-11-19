@@ -127,16 +127,17 @@ function injectJSONLD(event) {
 // ====== Header/Footer ======
 function renderHeader(active) {
   const nav = [
-  { id: "home", label: "Home", href: "index.html" },
-  { id: "about", label: "Über", href: "about.html" },
-  { id: "events", label: "Events", href: "events.html" },
-  { id: "artists", label: "Künstlerförderung", href: "artists.html" },
-  { id: "join", label: "Mitglied werden", href: "join.html" },
-  { id: "contact", label: "Kontakt", href: "contact.html" },
-];
+    { id: "home", label: "Home", href: "index.html" },
+    { id: "about", label: "Über", href: "about.html" },
+    { id: "events", label: "Events", href: "events.html" },
+    { id: "artists", label: "Künstlerförderung", href: "artists.html" },
+    { id: "join", label: "Mitglied werden", href: "join.html" },
+    { id: "contact", label: "Kontakt", href: "contact.html" },
+  ];
+
   const header = qs("#header");
   header.innerHTML = `
-  <header class="sticky top-0 z-50 border-b border-white/10 backdrop-blur supports-[backdrop-filter]:bg-slate-950/60">
+  <header class="sticky top-0 inset-x-0 z-50 border-b border-white/10 backdrop-blur bg-slate-950/70 supports-[backdrop-filter]:bg-slate-950/40">
     <nav class="mx-auto max-w-6xl px-4 md:px-6">
       <div class="flex items-center justify-between h-16">
         <a href="index.html" class="flex items-center gap-2 font-semibold">
@@ -144,17 +145,27 @@ function renderHeader(active) {
           <span class="tracking-tight">${CLUB.name}</span>
         </a>
         <div class="hidden md:flex items-center gap-6">
-          ${nav.map(s => `<a class="nav-link text-sm ${active===s.id ? 'text-white' : 'text-slate-300 hover:text-white'}" aria-current="${active===s.id ? 'page' : ''}" href="${s.href}">${s.label}</a>`).join("")}
+          ${nav.map(s => `
+            <a class="nav-link text-sm ${active===s.id ? 'text-white' : 'text-slate-300 hover:text-white'}" 
+               aria-current="${active===s.id ? 'page' : ''}" href="${s.href}">
+               ${s.label}
+            </a>`).join("")}
         </div>
         <button class="md:hidden p-2 rounded-xl border border-white/10" id="menu-btn" aria-label="Menü öffnen">☰</button>
       </div>
+
       <div class="md:hidden pb-4 grid gap-2 hidden" id="mobile-menu">
-        ${[...nav, {id:"impressum", label:"Impressum", href:"impressum.html"}, {id:"datenschutz", label:"Datenschutz", href:"datenschutz.html"}].map(s => `
-          <a class="px-2 py-2 rounded-2xl hover:bg-white/5 text-slate-200 ${active===s.id ? 'bg-white/10' : ''}" href="${s.href}">${s.label}</a>
+        ${[...nav, {id:"impressum", label:"Impressum", href:"impressum.html"}, {id:"datenschutz", label:"Datenschutz", href:"datenschutz.html"}]
+          .map(s => `
+            <a class="px-2 py-2 rounded-2xl hover:bg-white/5 text-slate-200 ${active===s.id ? 'bg-white/10' : ''}" 
+               href="${s.href}">
+               ${s.label}
+            </a>
         `).join("")}
       </div>
     </nav>
   </header>`;
+
   const btn = qs("#menu-btn");
   const menu = qs("#mobile-menu");
   if (btn && menu) btn.addEventListener("click", () => menu.classList.toggle("hidden"));
