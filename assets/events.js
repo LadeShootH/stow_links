@@ -27,14 +27,14 @@ Lass das alte Jahr hinter dir und starte 2026 mit einem Knall – Party, Beats u
     venue: "FreiRaum Hausen",
     address: "",
     music: "Partymix & Halloween Sounds",
-    description: "Gruselig, laut, legendär! 🎃 Die Vertigo Halloween Party 2025 im FreiRaum Hausen war ein voller Erfolg – mit Bodennebel, fetter Deko, DJ flo.meins & DI.FFO und über 120 Gästen, die Halloween so richtig gefeiert haben!",
-    longDescription: `Halloween im FreiRaum Hausen war dieses Jahr einfach nächste Stufe! Schon beim Reinkommen war klar: Das wird kein normaler Freitagabend. Nebelschwaden zogen über den Boden, gruselige Lichter flackerten durch den Raum, und überall tummelten sich Vampire, Hexen und Zombies – die Stimmung war von Anfang an elektrisierend. ⚡️
+    description: "Gruselig, laut, legendär! 🎃 Die Vertigo Halloween Party 2025 im FreiRaum Hausen war ein voller Erfolg - mit Bodennebel, fetter Deko, DJ flo.meins & DI.FFO und über 120 Gästen, die Halloween so richtig gefeiert haben!",
+    longDescription: `Halloween im FreiRaum Hausen war dieses Jahr einfach nächste Stufe! Schon beim Reinkommen war klar: Das wird kein normaler Freitagabend. Nebelschwaden zogen über den Boden, gruselige Lichter flackerten durch den Raum, und überall tummelten sich Vampire, Hexen und Zombies - die Stimmung war von Anfang an elektrisierend. ⚡️
 
-DI.FFO sorgte mit seinem Pre-Set direkt für den perfekten Einstieg, bevor DJ flo.meins mit seinem unverwechselbaren Halloween Mix die Tanzfläche komplett übernommen hat. Von 21 bis 2 Uhr wurde getanzt, gefeiert und mitgesungen – der FreiRaum hat gebebt! Der Nebel hat für die richtige Portion Gänsehaut gesorgt, während die aufwendige Deko das Ganze in eine richtige Horrorfilm-Kulisse verwandelt hat. 🕸️💀
+DI.FFO sorgte mit seinem Pre-Set direkt für den perfekten Einstieg, bevor DJ flo.meins mit seinem unverwechselbaren Halloween Mix die Tanzfläche komplett übernommen hat. Von 21 bis 2 Uhr wurde getanzt, gefeiert und mitgesungen - der FreiRaum hat gebebt! Der Nebel hat für die richtige Portion Gänsehaut gesorgt, während die aufwendige Deko das Ganze in eine richtige Horrorfilm-Kulisse verwandelt hat. 🕸️💀
 
 Und natürlich durfte unser Klassiker nicht fehlen: Gratis Getränk für alle Verkleideten! 🍹 Das kam super an – genauso wie die großartige Community, die diese Nacht zu dem gemacht hat, was sie war: legendär.
 
-Ihr wart der absolute Wahnsinn! Danke an alle, die dabei waren – ihr habt Halloween in Forchheim unvergesslich gemacht. 🔥🧡`,
+Ihr wart der absolute Wahnsinn! Danke an alle, die dabei waren - ihr habt Halloween in Forchheim unvergesslich gemacht. 🔥🧡`,
     ticketsUrl: "https://vertigo-nights.de/halloween/6",
     stats: { guests: 120, rating: 4.9 },
     cover: ""
