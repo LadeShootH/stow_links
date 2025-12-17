@@ -94,7 +94,7 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     Freu dich auf coole Beats, spannende Acts und jede Menge Spaß mit Leuten, die genauso feiern wie du. 
     Programm, Specials und weitere Highlights verraten wir bald – also stay tuned und sei dabei, wenn wir den Sommer im KulturSommerQuartier richtig abfeiern!`,
     music: "Indie, Pop, Rock, Metal",
-    cover: "https://stow301.de/images/events/fostival26.jpg"
+    cover: "https://stow301.de/images/events/fostival2026.jpg"
   },
     {
     id: "silent-disco-2025",
