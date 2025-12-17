@@ -82,6 +82,18 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     stats: { guests: 110, rating: 3.8 },
     cover: "https://stow301.de/images/events/fostival25.png"
   },
+  {
+    id: "fostival-2026",
+    title: "FOstival 2026",
+    date: "2026-07-03",
+    startTime: "17:00",
+    endTime: "23:00",
+    venue: "KulturSommerQuartier",
+    description: "Jugendfestival Forchheim 2026",
+    longDescription: `FOstival 2026 – Das Jugendfestival im KulturSommerQuartier. Programm, Acts und Rahmenangebote folgen in Kürze. Komm vorbei und feier mit uns!`,
+    music: "Mixed",
+    cover: "https://stow301.de/images/events/fostival26.png"
+  },
     {
     id: "silent-disco-2025",
     title: "SILENT DISCO",
@@ -89,7 +101,7 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     dateEnd: "2025-02-01",
     startTime: "18:00",
     endTime: "22:00",
-    cover: "https://i.imgur.com/sLJLi33.jpeg",
+    cover: "https://stow301.de/images/events/SilentDisco2025.jpg",
     venue: "Kellerwald Winterzauber",
     description: "Silent Disco am Kellerwald",
     longDescription: `❄️ SILENT DISCO beim Kellerwald WINTERZAUBER ❄️
