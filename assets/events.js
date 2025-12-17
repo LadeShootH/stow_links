@@ -16,7 +16,7 @@ Feier mit uns den Jahreswechsel zu den besten Hits der 2000er und 2010er! DJ Cur
 
 Lass das alte Jahr hinter dir und starte 2026 mit einem Knall – Party, Beats und Erinnerungen, die bleiben! 🥂✨`,
     ticketsUrl: "https://vertigo-nights.de/silvester/23pna",
-    cover: ""
+    cover: "https://stow301.de/images/events/djcurse.jpg"
   },
   {
     id: "vertigo-halloween-2025",
