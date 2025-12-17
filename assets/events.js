@@ -90,9 +90,11 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     endTime: "23:00",
     venue: "KulturSommerQuartier",
     description: "Jugendfestival Forchheim 2026",
-    longDescription: `FOstival 2026 – Das Jugendfestival im KulturSommerQuartier. Programm, Acts und Rahmenangebote folgen in Kürze. Komm vorbei und feier mit uns!`,
-    music: "Mixed",
-    cover: "https://stow301.de/images/events/fostival26.png"
+    longDescription: `Das FOstival kommt zurück – frischer, lauter und jetzt für alle ab 16! 
+    Freu dich auf coole Beats, spannende Acts und jede Menge Spaß mit Leuten, die genauso feiern wie du. 
+    Programm, Specials und weitere Highlights verraten wir bald – also stay tuned und sei dabei, wenn wir den Sommer im KulturSommerQuartier richtig abfeiern!`,
+    music: "Indie, Pop, Rock, Metal",
+    cover: "https://stow301.de/images/events/fostival26.jpg"
   },
     {
     id: "silent-disco-2025",
