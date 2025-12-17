@@ -37,7 +37,7 @@ Und natürlich durfte unser Klassiker nicht fehlen: Gratis Getränk für alle Ve
 Ihr wart der absolute Wahnsinn! Danke an alle, die dabei waren - ihr habt Halloween in Forchheim unvergesslich gemacht. 🔥🧡`,
     ticketsUrl: "https://vertigo-nights.de/halloween/6",
     stats: { guests: 120, rating: 4.9 },
-    cover: ""
+    cover: "https://stow301.de/images/events/vertigo-halloween.png"
   },
   {
     id: "vertigo-opening-2025",
