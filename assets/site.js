@@ -100,8 +100,8 @@ function eventCardHTML(e, isPast) {
           </div>
           ${e.description ? `<p class="mt-3 text-sm text-slate-300">${e.description}</p>` : ""}
           <div class="mt-4 flex flex-col sm:flex-row gap-3">
-            <a href="event.html?id=${encodeURIComponent(e.id)}" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 w-40 sm:w-auto">Details ansehen</a>
-            ${!isPast && e.ticketsUrl ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-white text-slate-900 hover:bg-white/90 w-40 sm:w-auto">Tickets kaufen</a>` : ""}
+            <a href="event.html?id=${encodeURIComponent(e.id)}" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 w-48 sm:w-auto">Details ansehen</a>
+            ${!isPast && e.ticketsUrl ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-white text-slate-900 hover:bg-white/90 w-48 sm:w-auto">Tickets kaufen</a>` : ""}
             
           </div>
         </div>
