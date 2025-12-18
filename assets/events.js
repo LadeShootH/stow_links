@@ -6,7 +6,7 @@ window.EVENTS = [
     date: "2025-12-31",
     startTime: "21:00",
     endTime: "03:00",
-    venue: "Eventvilla",
+    venue: "Eventvilla Forchheim",
     address: "",
     music: "2000er & 2010er",
     description: "VERTIGO SILVESTER PARTY🎆",
@@ -45,7 +45,7 @@ Ihr wart der absolute Wahnsinn! Danke an alle, die dabei waren - ihr habt Hallow
     date: "2025-07-12",
     startTime: "20:00",
     endTime: "02:00",
-    venue: "Eventvilla",
+    venue: "Eventvilla Forchheim",
     description: "✨ Vertigo Opening ✨",
     longDescription: `✨ Vertigo Opening ✨
 
@@ -68,7 +68,7 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     date: "2025-06-28",
     startTime: "14:00",
     endTime: "22:00",
-    venue: "KulturSommerQuartier",
+    venue: "KulturSommerQuartier beim Königsbad Forchheim",
     description: "Jugendfestival Forchheim",
     longDescription: `Das FOstival ging 2025 in die dritte Runde – dieses Mal im Kultursommerquartier beim Königsbad.
     Auf Jugendliche ab 12 Jahren warteten Angebote für die Freizeitgestaltung, Spiele, Kunst und viel Musik. 🎨
@@ -88,7 +88,7 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     date: "2026-07-03",
     startTime: "17:00",
     endTime: "23:00",
-    venue: "KulturSommerQuartier",
+    venue: "KulturSommerQuartier beim Königsbad Forchheim",
     description: "Jugendfestival Forchheim 2026",
     longDescription: `Das FOstival kommt zurück – frischer, lauter und jetzt für alle ab 16! 
     Freu dich auf coole Beats, spannende Acts und jede Menge Spaß mit Leuten, die genauso feiern wie du. 
@@ -121,4 +121,21 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     music: "EDM",
     stats: { guests: 150, rating: 4.2 }
   }
+    ,
+    {
+      id: "fachwerk-festival-2026",
+      title: "Fachwerk Festival",
+      date: "2026-09-12",
+      startTime: "18:30",
+      endTime: "22:30",
+      venue: "Junges Theater Forchheim",
+      address: "",
+      music: "",
+      description: "Newcomer Festival Forchheim",
+      longDescription: `2026 ist es so weit: Das erste Newcomer Festival in Forchheim findet statt! 🔥
+  Du bist Musikschaffende*r und findest du verdienst mehr Aufmerksamkeit? Dann bewirb dich jetzt bis zum 31.01.2026 per DM auf Insta oder E-Mail (fachwerk@stow301.de) 🤙
+  🎤 Wir suchen Solo-Künstler*innen und Bands 
+  Weiteres Folgt`,
+      cover: ""
+    }
 ];
