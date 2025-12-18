@@ -37,6 +37,15 @@ const qsa = (s, el = document) => Array.from(el.querySelectorAll(s));
 const fmtDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" });
 const parseDate = (iso) => { const d = new Date(`${iso}T00:00:00`); d.setHours(0,0,0,0); return d; };
 
+// Build a Google Maps search URL from event venue/address when mapsLink not provided
+function buildMapsLink(e) {
+  if (!e) return null;
+  const q = (e.venue || e.address || "").trim();
+  if (!q) return null;
+  const encoded = encodeURIComponent(q.replace(/\s+/g, "+"));
+  return `https://www.google.com/maps/search/?api=1&query=${encoded}`;
+}
+
 function splitEvents(list) {
   const today = new Date(); today.setHours(0,0,0,0);
   const upcoming = list
@@ -93,6 +102,7 @@ function eventCardHTML(e, isPast) {
           <div class="mt-4 flex flex-col sm:flex-row gap-3">
             <a href="event.html?id=${encodeURIComponent(e.id)}" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 w-full sm:w-auto">Details ansehen</a>
             ${!isPast && e.ticketsUrl ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-white text-slate-900 hover:bg-white/90 w-full sm:w-auto">Tickets kaufen</a>` : ""}
+            
           </div>
         </div>
       </div>
@@ -238,10 +248,11 @@ function initEventDetail() {
   const id = params.get("id");
   const e = EVENTS.find(x => x.id === id);
   const root = qs("#event-detail");
-  if (!e) {
-    root.innerHTML = `<h2 class="text-2xl font-semibold">Event nicht gefunden</h2>`;
-    return;
-  }
+    if (!e) {
+      root.innerHTML = `<h2 class="text-2xl font-semibold">Event nicht gefunden</h2>`;
+      return;
+    }
+    const maps = e.mapsLink || buildMapsLink(e);
   const today = new Date(); today.setHours(0,0,0,0);
   const isPast = e.date ? parseDate(endDateOf(e)) < today : false;
   const rating = e.stats && typeof e.stats.rating === "number" ? Math.max(0, Math.min(5, e.stats.rating)) : null;
@@ -297,7 +308,8 @@ function initEventDetail() {
       		🎶 <span><span class="text-slate-400">Genre</span><br>${e.genre}</span>
     			</li>` : ""}
 				</ul>
-        <div class="mt-6">
+        <div class="mt-6 space-y-2">
+          ${maps ? `<a href="${maps}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white w-full">📍 Wegbeschreibung</a>` : ``}
           ${isPast ? `<a href="${e.galleryUrl || CLUB.instagram}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-100 w-full">Fotos ansehen</a>`
                    : (e.ticketsUrl ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 w-full">Tickets kaufen</a>` : "")}
         </div>

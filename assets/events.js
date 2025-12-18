@@ -1,4 +1,5 @@
 // assets/events.js
+// Hinweis zu Wegschreibung-Button: Wenn `mapsLink` gesetzt ist, wird dieser verwendet; sonst erzeugt `site.js` per `buildMapsLink(e)` einen Fallback aus `venue`/`address`.
 window.EVENTS = [
   {
     id: "vertigo-silvester-2025",
@@ -8,6 +9,7 @@ window.EVENTS = [
     endTime: "03:00",
     venue: "Eventvilla Forchheim",
     address: "",
+    mapsLink: "https://maps.app.goo.gl/PVrqcfb1fP5FnjpQ7", 
     music: "2000er & 2010er",
     description: "VERTIGO SILVESTER PARTY🎆",
     longDescription: `SILVESTER 2025 – DIE 2000er & 2010er PARTY DES JAHRES! 🎆🎉
@@ -68,7 +70,7 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     date: "2025-06-28",
     startTime: "14:00",
     endTime: "22:00",
-    venue: "KulturSommerQuartier beim Königsbad Forchheim",
+    venue: "KulturSommerQuartier",
     description: "Jugendfestival Forchheim",
     longDescription: `Das FOstival ging 2025 in die dritte Runde – dieses Mal im Kultursommerquartier beim Königsbad.
     Auf Jugendliche ab 12 Jahren warteten Angebote für die Freizeitgestaltung, Spiele, Kunst und viel Musik. 🎨
@@ -88,7 +90,7 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     date: "2026-07-03",
     startTime: "17:00",
     endTime: "23:00",
-    venue: "KulturSommerQuartier beim Königsbad Forchheim",
+    venue: "KulturSommerQuartier",
     description: "Jugendfestival Forchheim 2026",
     longDescription: `Das FOstival kommt zurück – frischer, lauter und jetzt für alle ab 16! 
     Freu dich auf coole Beats, spannende Acts und jede Menge Spaß mit Leuten, die genauso feiern wie du. 
