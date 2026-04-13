@@ -1,6 +1,20 @@
 // assets/events.js
 // Hinweis zu Wegschreibung-Button: Wenn `mapsLink` gesetzt ist, wird dieser verwendet; sonst erzeugt `site.js` per `buildMapsLink(e)` einen Fallback aus `venue`/`address`.
 window.EVENTS = [
+      {
+      id: "fachwerk-festival-2026",
+      title: "Fachwerk Festival",
+      date: "2026-09-12",
+      startTime: "18:30",
+      endTime: "22:30",
+      venue: "Junges Theater Forchheim",
+      address: "https://maps.app.goo.gl/Q9Y1NRGs73UgKjhW7",
+      music: "",
+      description: "Newcomer Festival Forchheim",
+      longDescription: `Das Fachwerk Festival ist eine Veranstaltung am 12. September im Jungen Theater Forchheim, die sich an ein junges Publikum richtet. Sie bietet Newcomer-Bands eine Plattform, um sich Forchheim zu präsentieren.
+Zum Abschluss der Veranstaltung wird ein Voting stattfinden. Dabei bestimmen die Besucher den Gewinner des Hauptpreises.`,
+      cover: ""
+    },
   {
     id: "vertigo-silvester-2025",
     title: "VERTIGO Silvester Party",
@@ -123,21 +137,4 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     music: "EDM",
     stats: { guests: 150, rating: 4.2 }
   }
-    ,
-    {
-      id: "fachwerk-festival-2026",
-      title: "Fachwerk Festival",
-      date: "2026-09-12",
-      startTime: "18:30",
-      endTime: "22:30",
-      venue: "Junges Theater Forchheim",
-      address: "",
-      music: "",
-      description: "Newcomer Festival Forchheim",
-      longDescription: `2026 ist es so weit: Das erste Newcomer Festival in Forchheim findet statt! 🔥
-  Du bist Musikschaffende*r und findest du verdienst mehr Aufmerksamkeit? Dann bewirb dich jetzt bis zum 31.01.2026 per DM auf Insta oder E-Mail (fachwerk@stow301.de) 🤙
-  🎤 Wir suchen Solo-Künstler*innen und Bands 
-  Weiteres Folgt`,
-      cover: ""
-    }
 ];
