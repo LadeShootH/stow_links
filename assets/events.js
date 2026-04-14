@@ -15,6 +15,19 @@ window.EVENTS = [
 Zum Abschluss der Veranstaltung wird ein Voting stattfinden. Dabei bestimmen die Besucher den Gewinner des Hauptpreises.`,
       cover: ""
     },
+      {
+      id: "tiefgaragenrave-2026",
+      title: "Tiefgaragen-Rave",
+      date: "2026-05-16",
+      startTime: "18:30",
+      endTime: "23:00",
+      venue: "Möbel Fischer",
+      address: "",
+      music: "",
+      description: "Tiefgaragenrave (by Vertigo)",
+      longDescription: `To be announced...`,
+      cover: ""
+    },
   {
     id: "vertigo-silvester-2025",
     title: "VERTIGO Silvester Party",
