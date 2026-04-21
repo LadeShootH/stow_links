@@ -26,6 +26,7 @@ Zum Abschluss der Veranstaltung wird ein Voting stattfinden. Dabei bestimmen die
       music: "",
       description: "Tiefgaragenrave (by Vertigo)",
       longDescription: `To be announced...`,
+      ticketsUrl: "https://www.eventim-light.com/de/a/6830dbf9953bfc2f71f4cf9b/e/69dd07c3033faf7a4fb2e52c/?campaign=STOW", 
       cover: ""
     },
   {
