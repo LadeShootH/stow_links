@@ -25,7 +25,27 @@ Zum Abschluss der Veranstaltung wird ein Voting stattfinden. Dabei bestimmen die
       address: "",
       music: "",
       description: "Tiefgaragenrave (by Vertigo)",
-      longDescription: `To be announced...`,
+      longDescription: `TIEFGARAGEN RAVE: UNIQUE EXPERIENCE⛓️‍💥
+
+RAVE IN DER TIEFGARAGE
+
+Tief unter der Stadt. Beton. Dunkelheit. Druck auf der Brust. ⛓️‍💥
+Für wenige Stunden verwandelt sich eine echte Tiefgarage einmalig in einen kompromisslosen Techno Rave. Roh. Industriell. Laut.
+Starke Visuals und ein Sound, der den gesamten Raum einnimmt. Reduziert auf das, was wirklich zählt. 😮‍💨
+TECHNO - HARD TECHNO - SCHRANZ ⛓️‍💥
+
+LINE-UP 🎧
+@noro_ofc
+@finn_schaller
+@felx.wav
+
+WICHTIG:
+Einmalige Rave Experience mit streng limitierter Kapazität.
+Nur Bass, Beton und Menschen, die genau dafür gekommen sind.
+
+Sicher dir JETZT dein Ticket. 🎟️
+
+Großes Danke an Möbel Fischer für diese krasse Location 🫶🏼`,
       ticketsUrl: "https://www.eventim-light.com/de/a/6830dbf9953bfc2f71f4cf9b/e/69dd07c3033faf7a4fb2e52c/?campaign=STOW", 
       cover: ""
     },
