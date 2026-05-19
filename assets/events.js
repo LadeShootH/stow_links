@@ -47,7 +47,8 @@ Sicher dir JETZT dein Ticket. 🎟️
 
 Großes Danke an Möbel Fischer für diese krasse Location 🫶🏼`,
       ticketsUrl: "https://www.eventim-light.com/de/a/6830dbf9953bfc2f71f4cf9b/e/69dd07c3033faf7a4fb2e52c/?campaign=STOW", 
-      cover: ""
+      cover: "",
+      stats: { guests: 400, rating: 4.9 },
     },
   {
     id: "vertigo-silvester-2025",
@@ -66,7 +67,8 @@ Feier mit uns den Jahreswechsel zu den besten Hits der 2000er und 2010er! DJ Cur
 
 Lass das alte Jahr hinter dir und starte 2026 mit einem Knall – Party, Beats und Erinnerungen, die bleiben! 🥂✨`,
     ticketsUrl: "https://vertigo-nights.de/silvester/23pna",
-    cover: "https://stow301.de/images/events/djcurse.jpg"
+    cover: "https://stow301.de/images/events/djcurse.jpg",
+    stats: { guests: 110, rating: 4.6 },
   },
   {
     id: "vertigo-halloween-2025",
