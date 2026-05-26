@@ -9,10 +9,17 @@ window.EVENTS = [
       endTime: "22:30",
       venue: "Junges Theater Forchheim",
       address: "https://maps.app.goo.gl/Q9Y1NRGs73UgKjhW7",
-      music: "",
-      description: "Newcomer Festival Forchheim",
-      longDescription: `Das Fachwerk Festival ist eine Veranstaltung am 12. September im Jungen Theater Forchheim, die sich an ein junges Publikum richtet. Sie bietet Newcomer-Bands eine Plattform, um sich Forchheim zu präsentieren.
-Zum Abschluss der Veranstaltung wird ein Voting stattfinden. Dabei bestimmen die Besucher den Gewinner des Hauptpreises.`,
+      music: "Indie, Pop, Rock",
+      description: "Newcomer Festival Forchheim 🩷",
+      longDescription: `Das Fachwerk Festival findet am 12. September im Jungen Theater Forchheim statt. 🩷 
+Es bietet Newcomer-Bands eine Plattform, um sich Forchheims Undergroundfans zu präsentieren.
+Zum Abschluss der Veranstaltung findet ein Voting statt, bei dem Du gemeinsam mit einer Jury entscheidest, welche Band am stärksten war und den Hauptpreis verdient hat!
+
+Erlebe folgende Acts:
+- SYN
+- LisaRuftAn
+- HalfStepDown
+- CHARM`,
       cover: ""
     },
       {
@@ -24,7 +31,7 @@ Zum Abschluss der Veranstaltung wird ein Voting stattfinden. Dabei bestimmen die
       venue: "Möbel Fischer",
       address: "",
       music: "",
-      description: "Tiefgaragenrave (by Vertigo)",
+      description: "TIEFGARAGENRAVE (by Vertigo)",
       longDescription: `TIEFGARAGEN RAVE: UNIQUE EXPERIENCE⛓️‍💥
 
 RAVE IN DER TIEFGARAGE
