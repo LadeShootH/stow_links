@@ -65,7 +65,7 @@ Großes Danke an Möbel Fischer für diese krasse Location 🫶🏼`,
     endTime: "03:00",
     venue: "Eventvilla Forchheim",
     address: "",
-    mapsLink: "https://maps.app.goo.gl/PVrqcfb1fP5FnjpQ7", 
+    mapsLink: "", 
     music: "2000er & 2010er",
     description: "VERTIGO SILVESTER PARTY🎆",
     longDescription: `SILVESTER 2025 – DIE 2000er & 2010er PARTY DES JAHRES! 🎆🎉
@@ -94,7 +94,7 @@ DI.FFO sorgte mit seinem Pre-Set direkt für den perfekten Einstieg, bevor DJ fl
 Und natürlich durfte unser Klassiker nicht fehlen: Gratis Getränk für alle Verkleideten! 🍹 Das kam super an – genauso wie die großartige Community, die diese Nacht zu dem gemacht hat, was sie war: legendär.
 
 Ihr wart der absolute Wahnsinn! Danke an alle, die dabei waren - ihr habt Halloween in Forchheim unvergesslich gemacht. 🔥🧡`,
-    ticketsUrl: "https://vertigo-nights.de/halloween/6",
+    ticketsUrl: "",
     stats: { guests: 120, rating: 4.9 },
     cover: "https://stow301.de/images/events/vertigo-halloween.jpg"
   },
