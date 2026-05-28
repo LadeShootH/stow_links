@@ -19,7 +19,19 @@ Erlebe folgende Acts:
 - SYN
 - LisaRuftAn
 - HalfStepDown
-- CHARM`,
+- CHARM
+
+Vielen Dank unseren Sponsoren:
+  <div class="grid grid-cols-2 gap-4 my-6">
+    <img 
+      src="https://fachwerkfestival.de/images/logo-holzbau-bluemlein.jpg"
+      alt="Vertigo Opening Crowd"
+      class="rounded-2xl w-full object-cover">
+    <img 
+      src="https://fachwerkfestival.de/images/logo-ortungslogistik.svg"
+      alt="DJ beim Vertigo Opening"
+      class="rounded-2xl w-full object-cover">
+  </div>`,
       cover: ""
     },
       {
