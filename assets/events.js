@@ -21,7 +21,8 @@ Erlebe folgende Acts:
 - HalfStepDown
 - CHARM
 
-Vielen Dank unseren Sponsoren:
+
+Mit freundlicher Unterstützung unserer Sponsoren:
   <div class="grid grid-cols-2 gap-4 my-6">
     <img 
       src="https://fachwerkfestival.de/images/logo-holzbau-bluemlein.jpg"
