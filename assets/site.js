@@ -1,4 +1,3 @@
-
 // ====== Config & Data ======
 const CLUB = {
   name: "STOW301 e.V.",
@@ -13,8 +12,7 @@ const DOCS = [
   { key: "datenschutzordnung", label: "Datenschutzordnung", href: "/ressources/Datenschutzordnung_STOW301.pdf" },
 ];
 
-
-const USE_BACKEND = false; // set true and configure BACKEND_* below to actually upload/verify
+const USE_BACKEND = false;
 const BACKEND = {
   contact: "/api/contact",
   join: "/api/join",
@@ -22,40 +20,67 @@ const BACKEND = {
 };
 
 // ====== Utils ======
-// Events auslagern
 const EVENTS = window.EVENTS || [];
 
-// Mehrtages-Support
 const endDateOf = (e) => e.dateEnd || e.date;
 const fmtDateRange = (a, b) => (a === b ? fmtDate(a) : `${fmtDate(a)} – ${fmtDate(b)}`);
-
 const fmtTime = (t) => (t || "").replace(/^(\d{1,2}):(\d{2}).*$/, "$1:$2");
 const fmtTimeRange = (a, b) => (a && b ? `${fmtTime(a)} – ${fmtTime(b)}` : (a || b ? fmtTime(a || b) : ""));
-
 const qs = (s, el = document) => el.querySelector(s);
 const qsa = (s, el = document) => Array.from(el.querySelectorAll(s));
 const fmtDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" });
 const parseDate = (iso) => { const d = new Date(`${iso}T00:00:00`); d.setHours(0,0,0,0); return d; };
 
-// Build a Google Maps search URL from event venue/address when mapsLink not provided
+// ====== FIX: Wegbeschreibung nur anzeigen wenn explizit gesetzt ======
+// Früher wurde immer ein Maps-Link aus `venue` gebaut, auch wenn keine Adresse vorhanden war.
+// Jetzt: Link nur wenn `mapsLink` explizit gesetzt ODER `address` eine URL oder Adressangabe ist.
 function buildMapsLink(e) {
   if (!e) return null;
-  const q = (e.venue || e.address || "").trim();
-  if (!q) return null;
-  const encoded = encodeURIComponent(q.replace(/\s+/g, "+"));
-  return `https://www.google.com/maps/search/?api=1&query=${encoded}`;
+  // Expliziter Maps-Link hat höchste Priorität
+  if (e.mapsLink && e.mapsLink.trim()) return e.mapsLink.trim();
+  // address nur verwenden wenn es eine echte URL oder Adressangabe ist (nicht leer)
+  if (e.address && e.address.trim()) {
+    const addr = e.address.trim();
+    // Wenn es eine vollständige URL ist (z.B. maps.app.goo.gl), direkt zurückgeben
+    if (/^https?:\/\//i.test(addr)) return addr;
+    // Sonst als Google-Maps-Suche encodieren
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr.replace(/\s+/g, "+"))}`;
+  }
+  // Kein Link → null (kein Wegbeschreibungs-Button wird gerendert)
+  return null;
+}
+
+// ====== FIX: Ticket-Status korrekt bestimmen ======
+// Früher wurde für alle upcoming Events "Tickets verfügbar" gezeigt, egal ob ticketsUrl gesetzt war.
+// Jetzt gibt es drei Zustände: vergangen / tickets verfügbar / kein Vorverkauf
+function ticketStatus(e, isPast) {
+  if (isPast) return "past";
+  if (e.ticketsUrl && e.ticketsUrl.trim()) return "available";
+  return "none";
+}
+
+function statusPill(e, isPast) {
+  const status = ticketStatus(e, isPast);
+  if (status === "past") {
+    return `<span class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-white/10">Vergangen</span>`;
+  }
+  if (status === "available") {
+    return `<span class="inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-emerald-600/20 text-emerald-400 border border-emerald-500/30">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block"></span>Tickets verfügbar
+    </span>`;
+  }
+  // none: kommendes Event ohne Vorverkauf
+  return `<span class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-amber-600/20 text-amber-400 border border-amber-500/30">Abendkasse</span>`;
 }
 
 function splitEvents(list) {
   const today = new Date(); today.setHours(0,0,0,0);
   const upcoming = list
     .filter(e => e.date && parseDate(endDateOf(e)) >= today)
-    .sort((a,b) => parseDate(a.date) - parseDate(b.date)); // Startdatum
-
+    .sort((a,b) => parseDate(a.date) - parseDate(b.date));
   const past = list
     .filter(e => e.date && parseDate(endDateOf(e)) < today)
-    .sort((a,b) => parseDate(endDateOf(b)) - parseDate(endDateOf(a))); // Enddatum
-
+    .sort((a,b) => parseDate(endDateOf(b)) - parseDate(endDateOf(a)));
   return { upcoming, past, nextEvent: upcoming[0] || null, lastPast: past[0] || null };
 }
 
@@ -66,54 +91,67 @@ function starRow(rating) {
   return "★".repeat(full) + (half ? "☆" : "") + "☆".repeat(empty);
 }
 
-function statusPill(isPast) {
-  return isPast
-    ? `<span class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-slate-800 text-slate-200 border border-white/10">Vergangen</span>`
-    : `<span class="inline-flex items-center text-xs px-3 py-1 rounded-full bg-lime-600 text-white">Tickets verfügbar</span>`;
-}
-
+// ====== Event Card (überarbeitet & modernisiert) ======
 function eventCardHTML(e, isPast) {
   const day = e.date ? new Date(`${e.date}T00:00:00`) : null;
   const dd = day ? String(day.getDate()).padStart(2,"0") : "--";
   const month = day ? day.toLocaleString("de-DE", { month: "short" }).toUpperCase() : "--";
   const rating = isPast && e.stats && typeof e.stats.rating === "number" ? Math.max(0, Math.min(5, e.stats.rating)) : null;
+
   return `
-  <div class="rounded-2xl shadow-xl overflow-hidden bg-slate-900/80 border border-white/10">
-    <div class="p-4 sm:p-5">
-      <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
-        <div class="shrink-0 w-16 text-center p-2 rounded-xl bg-gradient-to-b from-pink-600 to-pink-400 text-white">
-          <div class="text-2xl font-bold leading-none">${dd}</div>
-          <div class="text-[10px] tracking-widest mt-1">${month}</div>
-        </div>
-        <div class="flex-1">
-          <div class="flex items-start justify-between gap-4">
-            <h3 class="text-xl font-semibold text-white">${e.title}</h3>
-            <div class="hidden sm:block">${statusPill(isPast)}</div>
+  <a href="event.html?id=${encodeURIComponent(e.id)}" class="block group">
+    <div class="rounded-2xl overflow-hidden border border-white/10 bg-slate-900/80 hover:border-pink-500/40 hover:bg-slate-900 transition-all duration-200 shadow-lg hover:shadow-pink-900/20">
+      <div class="flex flex-col sm:flex-row">
+        ${e.cover ? `
+          <div class="sm:w-48 sm:shrink-0 h-40 sm:h-auto overflow-hidden">
+            <img src="${e.cover}" alt="${e.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          </div>` : `
+          <div class="sm:w-48 sm:shrink-0 h-40 sm:h-auto bg-gradient-to-br from-pink-900/40 via-fuchsia-900/30 to-slate-900 flex items-center justify-center">
+            <span class="text-4xl opacity-40">🎵</span>
+          </div>`}
+        <div class="p-5 flex-1 flex flex-col gap-3">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="shrink-0 w-12 text-center py-1.5 px-1 rounded-xl bg-gradient-to-b from-pink-600 to-pink-500 text-white shadow-md">
+                <div class="text-xl font-bold leading-none">${dd}</div>
+                <div class="text-[9px] tracking-widest mt-0.5 opacity-90">${month}</div>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white group-hover:text-pink-300 transition-colors">${e.title}</h3>
+                ${e.venue ? `<div class="text-xs text-slate-400 mt-0.5">📍 ${e.venue}</div>` : ""}
+              </div>
+            </div>
+            <div class="shrink-0 hidden sm:block">${statusPill(e, isPast)}</div>
           </div>
-          <div class="sm:hidden mt-2">${statusPill(isPast)}</div>
-          <div class="mt-2 grid gap-x-6 gap-y-2 sm:grid-flow-col sm:auto-cols-max text-sm text-slate-300">
-            ${e.date ? `<div class="flex items-center gap-2">🗓 ${fmtDateRange(e.date, endDateOf(e))}</div>` : ""}            ${(e.startTime || e.endTime) ? `<div class="flex items-center gap-2">⏰ ${e.startTime || ""} ${e.endTime ? `– ${e.endTime} Uhr` : ""}</div>` : ""}
-            ${e.venue ? `<div class="flex items-center gap-2">📍 ${e.venue}</div>` : ""}
-            ${e.music ? `<div class="flex items-center gap-2">🎵 ${e.music}</div>` : ""}
-            ${isPast && e.stats?.guests !== undefined ? `<div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pink-500 inline-block"></span> ${e.stats.guests} Gäste</div>` : ""}
-            ${isPast && rating !== null ? `<div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pink-500 inline-block"></span> ${rating.toFixed(1)} / 5</div>` : ""}
+
+          <div class="sm:hidden">${statusPill(e, isPast)}</div>
+
+          <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400">
+            ${e.date ? `<span>🗓 ${fmtDateRange(e.date, endDateOf(e))}</span>` : ""}
+            ${(e.startTime || e.endTime) ? `<span>⏰ ${e.startTime || ""}${e.endTime ? ` – ${e.endTime} Uhr` : ""}</span>` : ""}
+            ${e.music ? `<span>🎵 ${e.music}</span>` : ""}
+            ${isPast && e.stats?.guests !== undefined ? `<span>👥 ${e.stats.guests} Gäste</span>` : ""}
+            ${isPast && rating !== null ? `<span class="text-pink-400">★ ${rating.toFixed(1)}/5</span>` : ""}
           </div>
-          ${e.description ? `<p class="mt-3 text-sm text-slate-300">${e.description}</p>` : ""}
-          <div class="mt-4 flex flex-col sm:flex-row gap-3">
-            <a href="event.html?id=${encodeURIComponent(e.id)}" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 w-48 sm:w-auto">Details ansehen</a>
-            ${!isPast && e.ticketsUrl ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-white text-slate-900 hover:bg-white/90 w-48 sm:w-auto">Tickets kaufen</a>` : ""}
-            
+
+          ${e.description ? `<p class="text-sm text-slate-400 line-clamp-2">${e.description}</p>` : ""}
+
+          <div class="mt-auto flex flex-wrap gap-2 pt-1">
+            <span class="inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-pink-600/20 border border-pink-500/30 text-pink-300 text-sm group-hover:bg-pink-600 group-hover:text-white transition-all">Details ansehen →</span>
+            ${!isPast && e.ticketsUrl ? `<span class="inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 text-white text-sm">🎟 Tickets kaufen</span>` : ""}
           </div>
         </div>
       </div>
     </div>
-  </div>`;
+  </a>`;
 }
 
+// ====== JSON-LD für Events (nur einmal aufrufen!) ======
 function injectJSONLD(event) {
   if (!event) return;
   const start = `${event.date}T${(event.startTime || "00:00")}:00+01:00`;
-  const end = `${event.date}T${(event.endTime || event.startTime || "00:00")}:00+01:00`;
+  const endDate = endDateOf(event);
+  const end = `${endDate}T${(event.endTime || event.startTime || "00:00")}:00+01:00`;
   const obj = {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -122,16 +160,73 @@ function injectJSONLD(event) {
     endDate: end,
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
-    location: { "@type": "Place", name: event.venue, address: event.address || "" },
-    image: event.cover ? [event.cover] : undefined,
-    description: event.description || "",
-    offers: event.ticketsUrl ? { "@type": "Offer", url: event.ticketsUrl, availability: "https://schema.org/InStock" } : undefined,
-    organizer: { "@type": "Organization", name: CLUB.name },
+    location: {
+      "@type": "Place",
+      name: event.venue,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Forchheim",
+        addressRegion: "BY",
+        addressCountry: "DE"
+      }
+    },
+    image: event.cover ? [event.cover] : ["https://stow301.de/images/Icon.png"],
+    description: event.longDescription || event.description || "",
+    organizer: { "@type": "Organization", name: CLUB.name, url: "https://stow301.de" },
   };
+  if (event.ticketsUrl) {
+    obj.offers = { "@type": "Offer", url: event.ticketsUrl, availability: "https://schema.org/InStock" };
+  }
   const s = document.createElement("script");
   s.type = "application/ld+json";
   s.textContent = JSON.stringify(obj);
   document.head.appendChild(s);
+}
+
+// ====== SEO-Hilfsfunktionen ======
+function setMetaTag(name, content, isProperty = false) {
+  const attr = isProperty ? "property" : "name";
+  let el = document.querySelector(`meta[${attr}="${name}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+function setCanonical(url) {
+  let el = document.querySelector('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement("link");
+    el.rel = "canonical";
+    document.head.appendChild(el);
+  }
+  el.href = url;
+}
+
+function setEventPageSEO(e) {
+  const title = `${e.title} – STOW301 e.V.`;
+  const desc = `${e.title} am ${fmtDate(e.date)} in ${e.venue || "Forchheim"}${e.music ? " · " + e.music : ""} – von STOW301 e.V.`;
+  const image = e.cover || "https://stow301.de/images/Icon.png";
+  const url = `https://stow301.de/event.html?id=${encodeURIComponent(e.id)}`;
+
+  document.title = title;
+  setMetaTag("description", desc);
+  setCanonical(url);
+
+  // Open Graph
+  setMetaTag("og:title", title, true);
+  setMetaTag("og:description", desc, true);
+  setMetaTag("og:image", image, true);
+  setMetaTag("og:url", url, true);
+  setMetaTag("og:type", "website", true);
+
+  // Twitter Card
+  setMetaTag("twitter:card", "summary_large_image");
+  setMetaTag("twitter:title", title);
+  setMetaTag("twitter:description", desc);
+  setMetaTag("twitter:image", image);
 }
 
 // ====== Header/Footer ======
@@ -156,18 +251,17 @@ function renderHeader(active) {
         </a>
         <div class="hidden md:flex items-center gap-6">
           ${nav.map(s => `
-            <a class="nav-link text-sm ${active===s.id ? 'text-white' : 'text-slate-300 hover:text-white'}" 
-               aria-current="${active===s.id ? 'page' : ''}" href="${s.href}">
+            <a class="nav-link text-sm ${active===s.id ? "text-white" : "text-slate-300 hover:text-white"}"
+               aria-current="${active===s.id ? "page" : ""}" href="${s.href}">
                ${s.label}
             </a>`).join("")}
         </div>
         <button class="md:hidden p-2 rounded-xl border border-white/10" id="menu-btn" aria-label="Menü öffnen">☰</button>
       </div>
-
       <div class="md:hidden pb-4 grid gap-2 hidden" id="mobile-menu">
         ${[...nav, {id:"impressum", label:"Impressum", href:"impressum.html"}, {id:"datenschutz", label:"Datenschutz", href:"datenschutz.html"}]
           .map(s => `
-            <a class="px-2 py-2 rounded-2xl hover:bg-white/5 text-slate-200 ${active===s.id ? 'bg-white/10' : ''}" 
+            <a class="px-2 py-2 rounded-2xl hover:bg-white/5 text-slate-200 ${active===s.id ? "bg-white/10" : ""}"
                href="${s.href}">
                ${s.label}
             </a>
@@ -213,17 +307,15 @@ function renderFooter() {
 function initHome() {
   renderHeader("home"); renderFooter();
 
-  // Parallax for hero layers
-  const hero = qs('[data-parallax]');
-  const layers = qsa('[data-hero-layer]', hero);
+  const hero = qs("[data-parallax]");
+  const layers = qsa("[data-hero-layer]", hero);
   const onScroll = () => {
     const rect = hero.getBoundingClientRect();
     const y = -rect.top;
     layers.forEach((el, i) => el.style.transform = `translateY(${y * (0.15 + i*0.05)}px)`);
   };
-  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
 
-  // Featured event
   const { nextEvent, lastPast } = splitEvents(EVENTS);
   const featured = nextEvent || lastPast;
   if (featured) {
@@ -238,8 +330,25 @@ function initHome() {
 function initEvents() {
   renderHeader("events"); renderFooter();
   const { upcoming, past } = splitEvents(EVENTS);
-  qs("#events-upcoming").innerHTML = upcoming.length ? upcoming.map(e => eventCardHTML(e, false)).join("") : `<div class="text-center text-slate-400">Keine kommenden Events.</div>`;
-  qs("#events-past").innerHTML = past.map(e => eventCardHTML(e, true)).join("");
+
+  const upcomingEl = qs("#events-upcoming");
+  const pastEl = qs("#events-past");
+
+  if (upcoming.length) {
+    upcomingEl.innerHTML = upcoming.map(e => eventCardHTML(e, false)).join("");
+  } else {
+    upcomingEl.innerHTML = `<div class="text-center py-12 text-slate-400">
+      <div class="text-3xl mb-3">📅</div>
+      <p>Aktuell keine kommenden Events geplant.</p>
+      <p class="text-sm mt-1 text-slate-500">Folge uns auf Instagram für Updates!</p>
+    </div>`;
+  }
+
+  if (past.length) {
+    pastEl.innerHTML = past.map(e => eventCardHTML(e, true)).join("");
+  } else {
+    pastEl.innerHTML = `<div class="text-center text-slate-400">Noch keine vergangenen Events.</div>`;
+  }
 }
 
 function initEventDetail() {
@@ -248,25 +357,44 @@ function initEventDetail() {
   const id = params.get("id");
   const e = EVENTS.find(x => x.id === id);
   const root = qs("#event-detail");
-    if (!e) {
-      root.innerHTML = `<h2 class="text-2xl font-semibold">Event nicht gefunden</h2>`;
-      return;
-    }
-    const maps = e.mapsLink || buildMapsLink(e);
+
+  if (!e) {
+    root.innerHTML = `
+      <div class="text-center py-20">
+        <div class="text-5xl mb-4">🔍</div>
+        <h2 class="text-2xl font-semibold text-white">Event nicht gefunden</h2>
+        <p class="mt-2 text-slate-400">Das gesuchte Event existiert nicht oder wurde entfernt.</p>
+        <a href="events.html" class="inline-flex items-center mt-6 px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white">Alle Events ansehen</a>
+      </div>`;
+    return;
+  }
+
+  // SEO: Titel, Meta-Tags und OG-Tags dynamisch setzen
+  setEventPageSEO(e);
+  // JSON-LD nur EINMAL injizieren
+  injectJSONLD(e);
+
+  const maps = buildMapsLink(e);
   const today = new Date(); today.setHours(0,0,0,0);
   const isPast = e.date ? parseDate(endDateOf(e)) < today : false;
   const rating = e.stats && typeof e.stats.rating === "number" ? Math.max(0, Math.min(5, e.stats.rating)) : null;
+  const status = ticketStatus(e, isPast);
 
   root.innerHTML = `
     <div class="relative rounded-3xl overflow-hidden border border-white/10 bg-slate-900">
       <div class="relative h-[38vh] sm:h-[42vh] min-h-[220px] sm:min-h-[300px] w-full">
-        ${e.cover ? `<img src="${e.cover}" alt="${e.title}" class="absolute inset-0 w-full h-full object-cover">` : `<div class="absolute inset-0 bg-gradient-to-br from-pink-900/40 to-lime-900/30"></div>`}
+        ${e.cover
+          ? `<img src="${e.cover}" alt="${e.title}" class="absolute inset-0 w-full h-full object-cover">`
+          : `<div class="absolute inset-0 bg-gradient-to-br from-pink-900/40 to-lime-900/30"></div>`}
         <div class="absolute inset-0 bg-black/50"></div>
         <div class="absolute inset-0 flex items-center justify-center text-center px-6">
           <div>
             <h1 class="text-3xl md:text-5xl font-extrabold text-white drop-shadow-lg">${e.title}</h1>
             ${e.music ? `<p class="mt-3 text-slate-200">${e.music}</p>` : ""}
-            <div class="mt-4">${isPast ? statusPill(true) : (e.ticketsUrl ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500">Tickets</a>` : "")}</div>
+            <div class="mt-4 flex items-center justify-center gap-3 flex-wrap">
+              ${statusPill(e, isPast)}
+              ${!isPast && status === "available" ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white font-medium shadow-lg">🎟 Tickets sichern</a>` : ""}
+            </div>
           </div>
         </div>
       </div>
@@ -275,94 +403,61 @@ function initEventDetail() {
     <div class="mt-10 grid md:grid-cols-3 gap-6 md:gap-10">
       <div class="md:col-span-2">
         <h2 class="text-2xl font-bold text-pink-400">Event Details</h2>
-				${e.longDescription 
-        ? `<div class="prose prose-invert max-w-none mt-4 text-slate-300 whitespace-pre-line">${e.longDescription}</div>` 
-        : (e.description ? `<p class="mt-4 text-slate-300">${e.description}</p>` : "")}
+        ${e.longDescription
+          ? `<div class="prose prose-invert max-w-none mt-4 text-slate-300 whitespace-pre-line">${e.longDescription}</div>`
+          : (e.description ? `<p class="mt-4 text-slate-300">${e.description}</p>` : "")}
         ${isPast ? `
-          <div class="mt-10">
+          <div class="mt-10 p-5 rounded-2xl border border-white/10 bg-slate-900/60">
             <h4 class="text-lg font-semibold text-pink-400">Event Bewertung</h4>
-            ${rating !== null ? `<div class="mt-2 flex items-center gap-3 text-slate-200"><span class="text-pink-500">${starRow(rating)}</span><span class="font-semibold">${rating.toFixed(1)}/5</span></div>` : `<div class="mt-2 text-slate-400 text-sm">Keine Bewertung vorhanden.</div>`}
-            ${e.stats?.guests !== undefined ? `<div class="text-xs text-slate-400 mt-1">Basierend auf ${e.stats.guests} Gästen</div>` : ""}
+            ${rating !== null ? `
+              <div class="mt-2 flex items-center gap-3 text-slate-200">
+                <span class="text-pink-400 text-xl">${starRow(rating)}</span>
+                <span class="font-bold text-lg text-white">${rating.toFixed(1)}<span class="text-slate-400 font-normal text-sm">/5</span></span>
+              </div>` : `<div class="mt-2 text-slate-400 text-sm">Keine Bewertung vorhanden.</div>`}
+            ${e.stats?.guests !== undefined ? `<div class="text-xs text-slate-500 mt-1">Basierend auf ${e.stats.guests} Gästen</div>` : ""}
           </div>` : ""}
       </div>
+
       <aside class="md:col-span-1">
-        <h4 class="text-lg font-semibold text-pink-400">Event Informationen</h4>
-        <ul class="mt-6 grid gap-3 text-sm">
-  				${e.date ? `
-    			<li class="flex items-center gap-2">
-      		🗓 <span><span class="text-slate-400">Datum</span><br>${e.dateEnd && e.dateEnd !== e.date ? `${fmtDate(e.date)} – ${fmtDate(e.dateEnd)}` : fmtDate(e.date)}</span>
-    			</li>` : ""}
+        <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-5">
+          <h4 class="text-base font-semibold text-pink-400 mb-4">Event Informationen</h4>
+          <ul class="grid gap-4 text-sm">
+            ${e.date ? `
+              <li class="flex items-start gap-3">
+                <span class="text-lg leading-none mt-0.5">🗓</span>
+                <div><div class="text-slate-500 text-xs uppercase tracking-wide mb-0.5">Datum</div>
+                <div class="text-slate-200">${e.dateEnd && e.dateEnd !== e.date ? `${fmtDate(e.date)} – ${fmtDate(e.dateEnd)}` : fmtDate(e.date)}</div></div>
+              </li>` : ""}
+            ${e.startTime || e.endTime ? `
+              <li class="flex items-start gap-3">
+                <span class="text-lg leading-none mt-0.5">⏰</span>
+                <div><div class="text-slate-500 text-xs uppercase tracking-wide mb-0.5">Uhrzeit</div>
+                <div class="text-slate-200">${e.startTime || ""}${e.endTime ? ` – ${e.endTime} Uhr` : ""}</div></div>
+              </li>` : ""}
+            ${e.venue ? `
+              <li class="flex items-start gap-3">
+                <span class="text-lg leading-none mt-0.5">📍</span>
+                <div><div class="text-slate-500 text-xs uppercase tracking-wide mb-0.5">Location</div>
+                <div class="text-slate-200">${e.venue}</div></div>
+              </li>` : ""}
+            ${e.music ? `
+              <li class="flex items-start gap-3">
+                <span class="text-lg leading-none mt-0.5">🎵</span>
+                <div><div class="text-slate-500 text-xs uppercase tracking-wide mb-0.5">Musik</div>
+                <div class="text-slate-200">${e.music}</div></div>
+              </li>` : ""}
+          </ul>
 
-  				${e.startTime || e.endTime ? `
-    			<li class="flex items-center gap-2">
-      		⏰ <span><span class="text-slate-400">Uhrzeit</span><br>${e.startTime || ""}${e.endTime ? ` – ${e.endTime}` : ""}</span>
-    			</li>` : ""}
-
-  				${e.venue ? `
-    			<li class="flex items-center gap-2">
-      		📍 <span><span class="text-slate-400">Location</span><br>${e.venue}</span>
-    			</li>` : ""}
-
-  				${e.genre ? `
-    			<li class="flex items-center gap-2">
-      		🎶 <span><span class="text-slate-400">Genre</span><br>${e.genre}</span>
-    			</li>` : ""}
-				</ul>
-        <div class="mt-6 space-y-2">
-          ${maps ? `<a href="${maps}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white w-full">📍 Wegbeschreibung</a>` : ``}
-          ${isPast ? `<a href="${e.galleryUrl || CLUB.instagram}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-100 w-full">Fotos ansehen</a>`
-                   : (e.ticketsUrl ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 w-full">Tickets kaufen</a>` : "")}
+          <div class="mt-6 grid gap-2">
+            ${maps ? `<a href="${maps}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm w-full transition-colors">📍 Wegbeschreibung</a>` : ""}
+            ${isPast
+              ? `<a href="${e.galleryUrl || CLUB.instagram}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-100 text-sm w-full transition-colors">📸 Fotos ansehen</a>`
+              : (status === "available" ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-sm font-medium w-full transition-colors">🎟 Tickets kaufen</a>` : "")}
+          </div>
         </div>
       </aside>
     </div>
   `;
-const startDate = e.date;
-const endDate = endDateOf(e);
-const start = `${startDate}T${(e.startTime || "00:00")}:00+01:00`;
-const end   = `${endDate}T${(e.endTime || e.startTime || "00:00")}:00+01:00`;
-  injectJSONLD(e);
-  
-  document.title = `${e.title} – STOW301 e.V.`;
-const metaDesc = document.querySelector('meta[name="description"]');
-if (metaDesc) {
-  metaDesc.setAttribute("content", `${e.title} in ${e.venue} – ${fmtDate(e.date)}. ${e.genre || "Event"} von STOW301 e.V.`);
-} else {
-  const m = document.createElement("meta");
-  m.name = "description";
-  m.content = `${e.title} in ${e.venue} – ${fmtDate(e.date)}. ${e.genre || "Event"} von STOW301 e.V.`;
-  document.head.appendChild(m);
-}
-const ld = {
-  "@context": "https://schema.org",
-  "@type": "Event",
-  "name": e.title,
-  "startDate": `${e.date}T${e.startTime || "20:00"}`,
-  "endDate": `${e.dateEnd || e.date}T${e.endTime || e.startTime || "23:59"}`,
-  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  "eventStatus": "https://schema.org/EventScheduled",
-  "location": {
-    "@type": "Place",
-    "name": e.venue,
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Forchheim",
-      "addressRegion": "BY",
-      "addressCountry": "DE"
-    }
-  },
-  "image": e.image ? [e.image] : ["https://stow301.de/assets/social-preview.jpg"],
-  "description": e.longDescription || e.title,
-  "organizer": {
-    "@type": "Organization",
-    "name": "STOW301 e.V.",
-    "url": "https://stow301.de"
-  }
-};
-
-const script = document.createElement("script");
-script.type = "application/ld+json";
-script.textContent = JSON.stringify(ld);
-document.head.appendChild(script);
 }
 
 function initArtists() {
@@ -389,7 +484,6 @@ function initJoin() {
   if (!form) return;
 
   const note = qs("#join-upload-note");
-  const submitBtn = qs("#join-submit");
   let captchaToken = "";
   window.onJoinCaptcha = (token) => { captchaToken = token; };
 
@@ -431,7 +525,8 @@ ${fd.get("motivation") || ""}`;
 
 function initContact() {
   renderHeader("contact"); renderFooter();
-  const form = qs("#contact-form"); const submitBtn = qs("#contact-submit"); let captchaToken = "";
+  const form = qs("#contact-form");
+  let captchaToken = "";
   window.onContactCaptcha = (token) => { captchaToken = token; };
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -463,7 +558,7 @@ function initImpressum() { renderHeader("impressum"); renderFooter(); }
 function initDatenschutz() { renderHeader("datenschutz"); renderFooter(); }
 function initAbout() { renderHeader("about"); renderFooter(); }
 
-// ====== Router (robust gegen Unterordner, Slash, Groß-/Kleinschreibung) ======
+// ====== Router ======
 (function () {
   const path = new URL(location.href).pathname.replace(/\/+$/, "").toLowerCase();
   let base = path.split("/").pop() || "index";
@@ -472,7 +567,7 @@ function initAbout() { renderHeader("about"); renderFooter(); }
   const byDom = () => {
     if (document.querySelector("#events-upcoming")) return "events";
     if (document.querySelector("#event-detail"))    return "event";
-	if (document.querySelector('[data-page="artists"]')) return "artists";
+    if (document.querySelector('[data-page="artists"]')) return "artists";
     if (document.querySelector("#join-form"))       return "join";
     if (document.querySelector("#contact-form"))    return "contact";
     if (document.querySelector("#impressum"))       return "impressum";
@@ -497,17 +592,17 @@ function initAbout() { renderHeader("about"); renderFooter(); }
     ? base
     : (byDom() || byTitle() || "index");
 
-	const map = {
-  	index: initHome,
-  	about: initAbout,
-  	events: initEvents,
-  	event: initEventDetail,
-  	join: initJoin,
-  	contact: initContact,
-  	impressum: initImpressum,
-  	datenschutz: initDatenschutz,
- 	artists: initArtists
-	};
+  const map = {
+    index: initHome,
+    about: initAbout,
+    events: initEvents,
+    event: initEventDetail,
+    join: initJoin,
+    contact: initContact,
+    impressum: initImpressum,
+    datenschutz: initDatenschutz,
+    artists: initArtists
+  };
 
   (map[page] || initHome)();
 })();
