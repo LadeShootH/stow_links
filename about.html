@@ -3,22 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Über – STOW301 e.V.</title>
+  <title>Über uns – STOW301 e.V.</title>
+  <meta name="description" content="Was ist STOW301 e.V.? Lerne unseren Kulturverein aus Forchheim kennen – unsere Geschichte, unsere Mission und wie wir Forchheims Nightlife mitgestalten.">
   <meta name="theme-color" content="#0b1020"/>
-	<meta property="og:url" content="https://stow301.de/about"></meta>
-	<meta property="og:title" content="STOW301 e.V. - Über uns"></meta>
-	<meta property="og:description" content="Was ist eigentlich STOW301 e.V.?"></meta>
-	<meta property="og:image" content="https://stow301.de/images/Icon.png"></meta>
-	<meta property="og:type" content="website" />
+  <link rel="canonical" href="https://stow301.de/about.html">
+  <meta property="og:url" content="https://stow301.de/about.html">
+  <meta property="og:title" content="Über uns – STOW301 e.V.">
+  <meta property="og:description" content="Was ist STOW301 e.V.? Lerne unseren Kulturverein aus Forchheim kennen.">
+  <meta property="og:image" content="https://stow301.de/images/Icon.png">
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Über uns – STOW301 e.V.">
+  <meta name="twitter:description" content="Kulturverein aus Forchheim – unsere Geschichte und Mission.">
+  <meta name="twitter:image" content="https://stow301.de/images/Icon.png">
+  <link rel="icon" type="image/png" href="images/Icon.png">
 
-	<link rel="icon" type="image/png" href="images/Icon.png">
-  
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: { extend: { } }
-    }
-  </script>
+  <script>tailwind.config = { theme: { extend: {} } }</script>
   <style>
     .glass { backdrop-filter: blur(10px); }
     .nav-link { position: relative; padding-bottom: .25rem; }
@@ -30,17 +31,44 @@
       border-radius: 999px;
     }
     .nav-link[aria-current="page"]::after { transform: scaleX(1); }
+
+    /* Timeline styles */
+    .timeline-item { opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
+    .timeline-item.visible { opacity: 1; transform: translateY(0); }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #ec4899;
+      border: 3px solid #0f172a;
+      box-shadow: 0 0 0 3px #ec489940;
+      z-index: 2;
+      transition: box-shadow .3s ease;
+    }
+    .timeline-item:hover .timeline-dot {
+      box-shadow: 0 0 0 6px #ec489940, 0 0 18px #ec489960;
+    }
+
+    @media (max-width: 767px) {
+      .timeline-dot { left: 20px; }
+      .timeline-line { left: 20px !important; }
+    }
   </style>
 </head>
 <body class="min-h-screen text-slate-100 bg-slate-950">
   <div id="header"></div>
 
   <main class="py-16 md:py-24">
+
+    <!-- ── Bestehender Inhalt ── -->
     <div class="mx-auto max-w-6xl px-4 md:px-6 grid md:grid-cols-2 gap-10 items-start">
       <div>
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Was ist STOW301 e.V.?</h2>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Was ist STOW301 e.V.?</h1>
         <p class="mt-4 text-slate-300 leading-relaxed">
-          Wir von STOW301 wollen in Forchheims Kulturlandschaft ein Angebot für junge Menschen schaffen. Dafür organisieren wir teils in Eigenregie, teils in Zusammenarbeit mit Partnern coole Festivals, Clubabende und vieles mehr. Gestalte mit uns dein Night-Life in Forchheim - egal ob als Gast auf unserer Veranstaltung, als Ehrenamtlicher bei der Organisation und Durchführung, oder als Künstler auf der Bühne.
+          Wir von STOW301 wollen in Forchheims Kulturlandschaft ein Angebot für junge Menschen schaffen. Dafür organisieren wir teils in Eigenregie, teils in Zusammenarbeit mit Partnern coole Festivals, Clubabende und vieles mehr. Gestalte mit uns dein Night-Life in Forchheim – egal ob als Gast auf unserer Veranstaltung, als Ehrenamtlicher bei der Organisation und Durchführung, oder als Künstler auf der Bühne.
         </p>
       </div>
       <ul class="grid gap-3">
@@ -50,9 +78,177 @@
         <li class="flex items-start gap-3 p-3 rounded-2xl border border-white/10 bg-slate-900"><span class="text-pink-500">✔</span><span class="text-slate-200">Event-Organisation</span></li>
       </ul>
     </div>
+
+    <!-- ── Trennlinie ── -->
+    <div class="mx-auto max-w-6xl px-4 md:px-6 mt-20">
+      <div class="h-px bg-white/10 relative">
+        <span class="absolute left-1/2 -translate-x-1/2 -top-2 block w-24 h-1 rounded-full bg-gradient-to-r from-pink-600 to-fuchsia-600"></span>
+      </div>
+    </div>
+
+    <!-- ── Zeitstrahl ── -->
+    <section class="mx-auto max-w-3xl px-4 md:px-6 mt-20">
+      <div class="text-center mb-14">
+        <h2 class="text-2xl md:text-3xl font-bold text-white">Unsere Geschichte</h2>
+        <p class="mt-2 text-slate-400 text-sm">Von der Idee zum eingetragenen Verein</p>
+      </div>
+
+      <!--
+        ╔══════════════════════════════════════════════════════╗
+        ║  ZEITSTRAHL – Einträge hier hinzufügen / entfernen  ║
+        ║                                                      ║
+        ║  Jeder Eintrag ist ein <div class="timeline-item">  ║
+        ║  mit folgender Struktur:                            ║
+        ║                                                      ║
+        ║  date   → Datum / Jahr (links bzw. oben)            ║
+        ║  title  → Meilenstein-Titel                         ║
+        ║  text   → Kurze Beschreibung (optional)             ║
+        ║  image  → Bild-URL (optional – Block einfach        ║
+        ║           weglassen wenn kein Bild gewünscht)       ║
+        ╚══════════════════════════════════════════════════════╝
+      -->
+
+      <div class="relative">
+
+        <!-- Vertikale Linie -->
+        <div class="timeline-line absolute top-0 bottom-0 w-px bg-gradient-to-b from-pink-600/60 via-fuchsia-600/40 to-transparent"
+             style="left: 50%;">
+        </div>
+
+        <div class="grid gap-12">
+
+          <!-- ── Eintrag 1 ── -->
+          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-center">
+            <div class="timeline-dot top-6 md:top-1/2 md:-translate-y-1/2" style="top: 1.5rem;"></div>
+            <!-- Datum (links) -->
+            <div class="text-right pr-8 md:pr-10 hidden md:block">
+              <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">2023</span>
+            </div>
+            <!-- Inhalt (rechts) -->
+            <div class="pl-10 md:pl-10">
+              <div class="md:hidden mb-2">
+                <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">2023</span>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 hover:border-pink-500/30 hover:bg-slate-900 transition-all duration-200">
+                <h3 class="font-semibold text-white">Die Idee entsteht</h3>
+                <p class="mt-1.5 text-sm text-slate-400 leading-relaxed">Erste private Events in der Freundesgruppe – und die Idee, daraus etwas Größeres zu machen: einen Verein, der Forchheims Nightlife für junge Menschen gestaltet.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Eintrag 2 ── -->
+          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-center">
+            <div class="timeline-dot" style="top: 1.5rem;"></div>
+            <!-- Inhalt (links, wechselnde Seite) -->
+            <div class="pl-10 md:pl-0 md:pr-10 md:text-right md:order-first order-last">
+              <div class="md:hidden mb-2">
+                <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Feb. 2024</span>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 hover:border-pink-500/30 hover:bg-slate-900 transition-all duration-200">
+                <h3 class="font-semibold text-white">Vereinsgründung</h3>
+                <p class="mt-1.5 text-sm text-slate-400 leading-relaxed">STOW301 e.V. wird offiziell ins Vereinsregister eingetragen. Aus der Freundesgruppen-Idee wird ein gemeinnütziger Kulturverein.</p>
+              </div>
+            </div>
+            <!-- Datum (rechts) -->
+            <div class="hidden md:flex items-start pl-10">
+              <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Feb. 2024</span>
+            </div>
+          </div>
+
+          <!-- ── Eintrag 3 ── -->
+          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-center">
+            <div class="timeline-dot" style="top: 1.5rem;"></div>
+            <!-- Datum (links) -->
+            <div class="text-right pr-8 md:pr-10 hidden md:block">
+              <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">März 2024</span>
+            </div>
+            <!-- Inhalt (rechts) -->
+            <div class="pl-10 md:pl-10">
+              <div class="md:hidden mb-2">
+                <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">März 2024</span>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 hover:border-pink-500/30 hover:bg-slate-900 transition-all duration-200">
+                <h3 class="font-semibold text-white">Nürnberger Nachrichten berichten</h3>
+                <p class="mt-1.5 text-sm text-slate-400 leading-relaxed">Kurz nach der Gründung berichten die Nürnberger Nachrichten über STOW301 – ein erster Beweis, dass die Idee über die eigene Community hinaus Aufmerksamkeit erzeugt.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Eintrag 4 ── -->
+          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-center">
+            <div class="timeline-dot" style="top: 1.5rem;"></div>
+            <!-- Inhalt (links) -->
+            <div class="pl-10 md:pl-0 md:pr-10 md:text-right md:order-first order-last">
+              <div class="md:hidden mb-2">
+                <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Mai 2024</span>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 hover:border-pink-500/30 hover:bg-slate-900 transition-all duration-200">
+                <h3 class="font-semibold text-white">FOstival 2024</h3>
+                <p class="mt-1.5 text-sm text-slate-400 leading-relaxed">Einladung und Teilnahme am FOstival 2024 – unser erster großer öffentlicher Auftritt als Verein und der Beginn einer festen Partnerschaft mit dem Forchheimer Jugendfestival.</p>
+                <!-- Bild optional: URL unten eintragen, oder diesen Block entfernen -->
+                <!-- <img src="URL_ZUM_BILD" alt="FOstival 2024" class="mt-3 rounded-xl w-full object-cover max-h-40"> -->
+              </div>
+            </div>
+            <!-- Datum (rechts) -->
+            <div class="hidden md:flex items-start pl-10">
+              <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Mai 2024</span>
+            </div>
+          </div>
+
+          <!-- ── Eintrag 5 ── -->
+          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-center">
+            <div class="timeline-dot" style="top: 1.5rem;"></div>
+            <!-- Datum (links) -->
+            <div class="text-right pr-8 md:pr-10 hidden md:block">
+              <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Juli 2025</span>
+            </div>
+            <!-- Inhalt (rechts) -->
+            <div class="pl-10 md:pl-10">
+              <div class="md:hidden mb-2">
+                <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Juli 2025</span>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 hover:border-pink-500/30 hover:bg-slate-900 transition-all duration-200 ring-1 ring-pink-500/20">
+                <!-- "Aktuell"-Badge -->
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="inline-flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2 py-0.5 rounded-full">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block"></span>Aktuell
+                  </span>
+                </div>
+                <h3 class="font-semibold text-white">Eventreihe Vertigo</h3>
+                <p class="mt-1.5 text-sm text-slate-400 leading-relaxed">Start der Eventreihe Vertigo in Partnerschaft mit fo.eventtechnik – unsere erste eigene, regelmäßige Veranstaltungsreihe.</p>
+                <!-- Bild optional: URL unten eintragen, oder diesen Block entfernen -->
+                <!-- <img src="URL_ZUM_BILD" alt="Vertigo Opening" class="mt-3 rounded-xl w-full object-cover max-h-40"> -->
+              </div>
+            </div>
+          </div>
+
+          <!--
+            ══════════════════════════════════════════════════════
+            NEUEN EINTRAG HINZUFÜGEN: Kopiere einen der Blöcke
+            oben (von <!-- ── Eintrag X ── -- > bis zum nächsten)
+            und passe Datum, Titel und Text an.
+
+            Ungerade Einträge (1, 3, 5, ...): Datum links, Inhalt rechts
+            Gerade Einträge  (2, 4, 6, ...): Inhalt links, Datum rechts
+            ══════════════════════════════════════════════════════
+          -->
+
+        </div><!-- /grid -->
+      </div><!-- /relative -->
+    </section>
+
   </main>
 
   <div id="footer"></div>
-  <script src="/assets/site.js?v=4"></script>
+  <script src="/assets/events.js?v=25"></script>
+  <script src="/assets/site.js?v=16"></script>
+  <script>
+    // Scroll-Animation für Zeitstrahl-Einträge
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); }),
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll(".timeline-item").forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
