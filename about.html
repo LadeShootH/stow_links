@@ -39,6 +39,9 @@
     .timeline-dot {
       position: absolute;
       left: 50%;
+      /* Badge hat py-1 (4px) + Zeilenhöhe ~20px → Mitte bei ~12px.
+         Dot-Höhe 14px → top: 5px zentriert ihn auf Badge-Mitte. */
+      top: 5px;
       transform: translateX(-50%);
       width: 14px; height: 14px;
       border-radius: 50%;
@@ -53,7 +56,7 @@
     }
 
     @media (max-width: 767px) {
-      .timeline-dot { left: 20px; }
+      .timeline-dot { left: 20px; top: 5px; }
       .timeline-line { left: 20px !important; }
     }
   </style>
@@ -118,15 +121,16 @@
         <div class="grid gap-12">
 
           <!-- ── Eintrag 1 ── -->
-          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-center">
-            <div class="timeline-dot" style="top: 1.5rem;"></div>
-            <!-- Datum (links) -->
+          <!-- Ungerade: Datum links, Karte rechts -->
+          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-start">
+            <div class="timeline-dot"></div>
+            <!-- Datum (links) – pr lässt Platz für den Mittelpunkt -->
             <div class="text-right pr-8 md:pr-10 hidden md:block">
               <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">2023</span>
             </div>
-            <!-- Inhalt (rechts) -->
+            <!-- Karte (rechts) – pl lässt Platz für den Mittelpunkt -->
             <div class="pl-10 md:pl-10">
-              <div class="md:hidden mb-2">
+              <div class="md:hidden mb-3">
                 <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">2023</span>
               </div>
               <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 hover:border-pink-500/30 hover:bg-slate-900 transition-all duration-200">
@@ -137,11 +141,12 @@
           </div>
 
           <!-- ── Eintrag 2 ── -->
-          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-center">
-            <div class="timeline-dot" style="top: 1.5rem;"></div>
-            <!-- Inhalt (links, wechselnde Seite) -->
-            <div class="pl-10 md:pl-0 md:pr-10 md:text-right md:order-first order-last">
-              <div class="md:hidden mb-2">
+          <!-- Gerade: Karte links, Datum rechts -->
+          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-start">
+            <div class="timeline-dot"></div>
+            <!-- Karte (links) -->
+            <div class="pl-10 md:pl-0 md:pr-10 md:order-first order-last">
+              <div class="md:hidden mb-3">
                 <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Feb. 2024</span>
               </div>
               <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 hover:border-pink-500/30 hover:bg-slate-900 transition-all duration-200">
@@ -149,22 +154,23 @@
                 <p class="mt-1.5 text-sm text-slate-400 leading-relaxed">STOW301 e.V. wird offiziell ins Vereinsregister eingetragen. Aus der Freundesgruppen-Idee wird ein gemeinnütziger Kulturverein.</p>
               </div>
             </div>
-            <!-- Datum (rechts) -->
-            <div class="hidden md:flex items-start pl-10">
+            <!-- Datum (rechts) – pl lässt Platz für den Mittelpunkt -->
+            <div class="hidden md:block pl-10">
               <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Feb. 2024</span>
             </div>
           </div>
 
           <!-- ── Eintrag 3 ── -->
-          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-center">
-            <div class="timeline-dot" style="top: 1.5rem;"></div>
+          <!-- Ungerade: Datum links, Karte rechts -->
+          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-start">
+            <div class="timeline-dot"></div>
             <!-- Datum (links) -->
             <div class="text-right pr-8 md:pr-10 hidden md:block">
               <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">März 2024</span>
             </div>
-            <!-- Inhalt (rechts) -->
+            <!-- Karte (rechts) -->
             <div class="pl-10 md:pl-10">
-              <div class="md:hidden mb-2">
+              <div class="md:hidden mb-3">
                 <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">März 2024</span>
               </div>
               <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 hover:border-pink-500/30 hover:bg-slate-900 transition-all duration-200">
@@ -175,11 +181,12 @@
           </div>
 
           <!-- ── Eintrag 4 ── -->
-          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-center">
-            <div class="timeline-dot" style="top: 1.5rem;"></div>
-            <!-- Inhalt (links) -->
-            <div class="pl-10 md:pl-0 md:pr-10 md:text-right md:order-first order-last">
-              <div class="md:hidden mb-2">
+          <!-- Gerade: Karte links, Datum rechts -->
+          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-start">
+            <div class="timeline-dot"></div>
+            <!-- Karte (links) -->
+            <div class="pl-10 md:pl-0 md:pr-10 md:order-first order-last">
+              <div class="md:hidden mb-3">
                 <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Mai 2024</span>
               </div>
               <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 hover:border-pink-500/30 hover:bg-slate-900 transition-all duration-200">
@@ -190,25 +197,25 @@
               </div>
             </div>
             <!-- Datum (rechts) -->
-            <div class="hidden md:flex items-start pl-10">
+            <div class="hidden md:block pl-10">
               <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Mai 2024</span>
             </div>
           </div>
 
           <!-- ── Eintrag 5 ── -->
-          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-center">
-            <div class="timeline-dot" style="top: 1.5rem;"></div>
+          <!-- Ungerade: Datum links, Karte rechts -->
+          <div class="timeline-item relative grid md:grid-cols-2 gap-6 md:gap-10 items-start">
+            <div class="timeline-dot"></div>
             <!-- Datum (links) -->
             <div class="text-right pr-8 md:pr-10 hidden md:block">
               <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Juli 2025</span>
             </div>
-            <!-- Inhalt (rechts) -->
+            <!-- Karte (rechts) -->
             <div class="pl-10 md:pl-10">
-              <div class="md:hidden mb-2">
+              <div class="md:hidden mb-3">
                 <span class="inline-block text-xs font-semibold tracking-widest uppercase text-pink-400 bg-pink-400/10 border border-pink-400/20 px-3 py-1 rounded-full">Juli 2025</span>
               </div>
               <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 hover:border-pink-500/30 hover:bg-slate-900 transition-all duration-200 ring-1 ring-pink-500/20">
-                <!-- "Aktuell"-Badge -->
                 <div class="flex items-center gap-2 mb-2">
                   <span class="inline-flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2 py-0.5 rounded-full">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block"></span>Aktuell
@@ -225,7 +232,7 @@
           <!--
             ══════════════════════════════════════════════════════
             NEUEN EINTRAG HINZUFÜGEN: Kopiere einen der Blöcke
-            oben (von <!-- ── Eintrag X ── -- > bis zum nächsten)
+            oben (von <!-- ── Eintrag X ── --> bis zum nächsten)
             und passe Datum, Titel und Text an.
 
             Ungerade Einträge (1, 3, 5, ...): Datum links, Inhalt rechts
