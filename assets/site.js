@@ -245,9 +245,8 @@ function renderHeader(active) {
   <header class="sticky top-0 inset-x-0 z-50 border-b border-white/10 backdrop-blur bg-slate-950/70 supports-[backdrop-filter]:bg-slate-950/40">
     <nav class="mx-auto max-w-6xl px-4 md:px-6">
       <div class="flex items-center justify-between h-16">
-        <a href="index.html" class="flex items-center gap-2 font-semibold">
-          <img src="https://stow301.de/images/STOW301_Logo-Modern.svg" alt="STOW301 Logo" class="h-8 w-auto" />
-          <span class="tracking-tight">${CLUB.name}</span>
+        <a href="index.html" class="flex items-center" aria-label="${CLUB.name} – Startseite">
+          <img src="https://stow301.de/images/STOW301_Logo-Modern.svg" alt="STOW301 e.V." class="h-8 w-auto" />
         </a>
         <div class="hidden md:flex items-center gap-6">
           ${nav.map(s => `
