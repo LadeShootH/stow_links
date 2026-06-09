@@ -164,7 +164,18 @@ Wir können es kaum erwarten, bald den nächsten Schritt zu gehen. Dies war nur 
     description: "Jugendfestival Forchheim 2026",
     longDescription: `Das FOstival kommt zurück – frischer, lauter und jetzt für alle ab 16! 
     Freu dich auf coole Beats, spannende Acts und jede Menge Spaß mit Leuten, die genauso feiern wie du. 
-    Programm, Specials und weitere Highlights verraten wir bald – also stay tuned und sei dabei, wenn wir den Sommer im KulturSommerQuartier richtig abfeiern!`,
+    Programm, Specials und weitere Highlights verraten wir bald – also stay tuned und sei dabei, wenn wir den Sommer im KulturSommerQuartier richtig abfeiern!
+    
+    Auf folgende Bands darfst du dich freuen:
+    - Distant Whisper (Rock/Metal)
+    - Klar & Herrlich (HipHop)
+    - Karolin Kübel
+    - SYN (Indie/Pop)
+    - HalbDurch
+    - Ëndstation (Coverband)
+    
+    Eintritt ist frei! 
+    Über den Ticketlink kannst du dir für 5€ einen Verzerrgutschein im Wert von 7€ kaufen.`,
     music: "Indie, Pop, Rock, Metal",
     cover: "https://stow301.de/images/events/fostival2026.jpg",
       ticketsUrl: "https://www.unser-ferienprogramm.de/forchheim/veranstaltung.php?id=304621"
