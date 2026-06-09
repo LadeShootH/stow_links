@@ -90,7 +90,8 @@ function starRow(rating) {
   const full = Math.floor(rating);
   const half = rating - full >= 0.5 ? 1 : 0;
   const empty = 5 - full - half;
-  return "★".repeat(full) + (half ? "☆" : "") + "☆".repeat(empty);
+  const s = (fill) => `<svg class="w-4 h-4 inline-block" viewBox="0 0 24 24" fill="${fill}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+  return s("currentColor").repeat(full) + (half ? s("none") : "") + s("none").repeat(empty);
 }
 
 // ====== Event Card (überarbeitet & modernisiert) ======
@@ -109,7 +110,7 @@ function eventCardHTML(e, isPast) {
             <img src="${e.cover}" alt="${e.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
           </div>` : `
           <div class="sm:w-48 sm:shrink-0 h-40 sm:h-auto bg-gradient-to-br from-pink-900/40 via-fuchsia-900/30 to-slate-900 flex items-center justify-center">
-            <span class="text-4xl opacity-40">🎵</span>
+            <svg class="w-10 h-10 opacity-20 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
           </div>`}
         <div class="p-5 flex-1 flex flex-col gap-3">
           <div class="flex items-start justify-between gap-3">
@@ -120,7 +121,7 @@ function eventCardHTML(e, isPast) {
               </div>
               <div>
                 <h3 class="text-lg font-bold text-white group-hover:text-pink-300 transition-colors">${e.title}</h3>
-                ${e.venue ? `<div class="text-xs text-slate-400 mt-0.5">📍 ${e.venue}</div>` : ""}
+                ${e.venue ? `<div class="flex items-center gap-1.5 text-xs text-slate-400 mt-0.5"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>${e.venue}</div>` : ""}
               </div>
             </div>
             <div class="shrink-0 hidden sm:block">${statusPill(e, isPast)}</div>
@@ -129,18 +130,18 @@ function eventCardHTML(e, isPast) {
           <div class="sm:hidden">${statusPill(e, isPast)}</div>
 
           <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400">
-            ${e.date ? `<span>🗓 ${fmtDateRange(e.date, endDateOf(e))}</span>` : ""}
-            ${(e.startTime || e.endTime) ? `<span>⏰ ${e.startTime || ""}${e.endTime ? ` – ${e.endTime} Uhr` : ""}</span>` : ""}
-            ${e.music ? `<span>🎵 ${e.music}</span>` : ""}
-            ${isPast && e.stats?.guests !== undefined ? `<span>👥 ${e.stats.guests} Gäste</span>` : ""}
-            ${isPast && rating !== null ? `<span class="text-pink-400">★ ${rating.toFixed(1)}/5</span>` : ""}
+            ${e.date ? `<span class="flex items-center gap-1"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>${fmtDateRange(e.date, endDateOf(e))}</span>` : ""}
+            ${(e.startTime || e.endTime) ? `<span class="flex items-center gap-1"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${e.startTime || ""}${e.endTime ? ` – ${e.endTime} Uhr` : ""}</span>` : ""}
+            ${e.music ? `<span class="flex items-center gap-1"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>${e.music}</span>` : ""}
+            ${isPast && e.stats?.guests !== undefined ? `<span class="flex items-center gap-1"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>${e.stats.guests} Gäste</span>` : ""}
+            ${isPast && rating !== null ? `<span class="flex items-center gap-1 text-pink-400"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>${rating.toFixed(1)}/5</span>` : ""}
           </div>
 
           ${e.description ? `<p class="text-sm text-slate-400 line-clamp-2">${e.description}</p>` : ""}
 
           <div class="mt-auto flex flex-wrap gap-2 pt-1">
-            <span class="inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-pink-600/20 border border-pink-500/30 text-pink-300 text-sm group-hover:bg-pink-600 group-hover:text-white transition-all">Details ansehen →</span>
-            ${!isPast && e.ticketsUrl ? `<span class="inline-flex items-center justify-center px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 text-white text-sm">🎟 Tickets kaufen</span>` : ""}
+            <span class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-pink-600/20 border border-pink-500/30 text-pink-300 text-sm group-hover:bg-pink-600 group-hover:text-white transition-all">Details ansehen <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+            ${!isPast && e.ticketsUrl ? `<span class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 text-white text-sm"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>Tickets kaufen</span>` : ""}
           </div>
         </div>
       </div>
@@ -260,7 +261,7 @@ function renderHeader(active) {
                ${s.label}
             </a>`).join("")}
         </div>
-        <button class="md:hidden p-2 rounded-xl border border-white/10" id="menu-btn" aria-label="Menü öffnen">☰</button>
+        <button class="md:hidden p-2 rounded-xl border border-white/10" id="menu-btn" aria-label="Menü öffnen"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg></button>
       </div>
       <div class="md:hidden pb-4 grid gap-2 hidden" id="mobile-menu">
         ${[...nav, {id:"impressum", label:"Impressum", href:"impressum.html"}, {id:"datenschutz", label:"Datenschutz", href:"datenschutz.html"}]
@@ -342,7 +343,7 @@ function initEvents() {
     upcomingEl.innerHTML = upcoming.map(e => eventCardHTML(e, false)).join("");
   } else {
     upcomingEl.innerHTML = `<div class="text-center py-12 text-slate-400">
-      <div class="text-3xl mb-3">📅</div>
+      <svg class="w-10 h-10 mx-auto mb-3 opacity-40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       <p>Aktuell keine kommenden Events geplant.</p>
       <p class="text-sm mt-1 text-slate-500">Folge uns auf Instagram für Updates!</p>
     </div>`;
@@ -375,7 +376,7 @@ function initEventDetail() {
   if (!e) {
     root.innerHTML = `
       <div class="text-center py-20">
-        <div class="text-5xl mb-4">🔍</div>
+        <svg class="w-12 h-12 mx-auto mb-4 opacity-30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <h2 class="text-2xl font-semibold text-white">Event nicht gefunden</h2>
         <p class="mt-2 text-slate-400">Das gesuchte Event existiert nicht oder wurde entfernt.</p>
         <a href="events.html" class="inline-flex items-center mt-6 px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white">Alle Events ansehen</a>
@@ -405,7 +406,7 @@ function initEventDetail() {
             ${e.music ? `<p class="mt-3 text-slate-200">${e.music}</p>` : ""}
             <div class="mt-4 flex items-center justify-center gap-3 flex-wrap">
               ${statusPill(e, isPast)}
-              ${!isPast && status === "available" ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white font-medium shadow-lg">🎟 Tickets sichern</a>` : ""}
+              ${!isPast && status === "available" ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white font-medium shadow-lg"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>Tickets sichern</a>` : ""}
             </div>
           </div>
         </div>
@@ -436,35 +437,35 @@ function initEventDetail() {
           <ul class="grid gap-4 text-sm">
             ${e.date ? `
               <li class="flex items-start gap-3">
-                <span class="text-lg leading-none mt-0.5">🗓</span>
+                <svg class="w-4 h-4 shrink-0 mt-0.5 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
                 <div><div class="text-slate-500 text-xs uppercase tracking-wide mb-0.5">Datum</div>
                 <div class="text-slate-200">${e.dateEnd && e.dateEnd !== e.date ? `${fmtDate(e.date)} – ${fmtDate(e.dateEnd)}` : fmtDate(e.date)}</div></div>
               </li>` : ""}
             ${e.startTime || e.endTime ? `
               <li class="flex items-start gap-3">
-                <span class="text-lg leading-none mt-0.5">⏰</span>
+                <svg class="w-4 h-4 shrink-0 mt-0.5 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 <div><div class="text-slate-500 text-xs uppercase tracking-wide mb-0.5">Uhrzeit</div>
                 <div class="text-slate-200">${e.startTime || ""}${e.endTime ? ` – ${e.endTime} Uhr` : ""}</div></div>
               </li>` : ""}
             ${e.venue ? `
               <li class="flex items-start gap-3">
-                <span class="text-lg leading-none mt-0.5">📍</span>
+                <svg class="w-4 h-4 shrink-0 mt-0.5 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                 <div><div class="text-slate-500 text-xs uppercase tracking-wide mb-0.5">Location</div>
                 <div class="text-slate-200">${e.venue}</div></div>
               </li>` : ""}
             ${e.music ? `
               <li class="flex items-start gap-3">
-                <span class="text-lg leading-none mt-0.5">🎵</span>
+                <svg class="w-4 h-4 shrink-0 mt-0.5 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
                 <div><div class="text-slate-500 text-xs uppercase tracking-wide mb-0.5">Musik</div>
                 <div class="text-slate-200">${e.music}</div></div>
               </li>` : ""}
           </ul>
 
           <div class="mt-6 grid gap-2">
-            ${maps ? `<a href="${maps}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm w-full transition-colors">📍 Wegbeschreibung</a>` : ""}
+            ${maps ? `<a href="${maps}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm w-full transition-colors"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Wegbeschreibung</a>` : ""}
             ${isPast
-              ? `<a href="${e.galleryUrl || CLUB.instagram}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-100 text-sm w-full transition-colors">📸 Fotos ansehen</a>`
-              : (status === "available" ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-sm font-medium w-full transition-colors">🎟 Tickets kaufen</a>` : "")}
+              ? `<a href="${e.galleryUrl || CLUB.instagram}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-100 text-sm w-full transition-colors"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>Fotos ansehen</a>`
+              : (status === "available" ? `<a href="${e.ticketsUrl}" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-sm font-medium w-full transition-colors"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>Tickets kaufen</a>` : "")}
           </div>
         </div>
       </aside>
