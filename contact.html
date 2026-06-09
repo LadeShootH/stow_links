@@ -4,21 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kontakt – STOW301 e.V.</title>
+  <meta name="description" content="Nimm Kontakt mit STOW301 e.V. auf – per E-Mail, Telefon oder Instagram. Wir freuen uns auf deine Nachricht!">
   <meta name="theme-color" content="#0b1020"/>
-  <meta property="og:url" content="https://stow301.de/contact"></meta>
-	<meta property="og:title" content="STOW301 e.V. - Kontakt"></meta>
-	<meta property="og:description" content="Kontaktiere den STOW301 e.V."></meta>
-	<meta property="og:image" content="https://stow301.de/images/Icon.png"></meta>
-	<meta property="og:type" content="website" />
+  <link rel="canonical" href="https://stow301.de/contact.html">
+  <meta property="og:url" content="https://stow301.de/contact.html">
+  <meta property="og:title" content="Kontakt – STOW301 e.V.">
+  <meta property="og:description" content="Nimm Kontakt mit STOW301 e.V. auf – per E-Mail, Telefon oder Instagram.">
+  <meta property="og:image" content="https://stow301.de/images/Icon.png">
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kontakt – STOW301 e.V.">
+  <meta name="twitter:description" content="Nimm Kontakt mit STOW301 e.V. auf – per E-Mail, Telefon oder Instagram.">
+  <meta name="twitter:image" content="https://stow301.de/images/Icon.png">
+  <link rel="icon" type="image/png" href="images/Icon.png">
 
-	<link rel="icon" type="image/png" href="images/Icon.png">
-	
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: { extend: { } }
-    }
-  </script>
+  <script src="/assets/tailwind.js"></script>
+  <script>tailwind.config = { theme: { extend: { } } }</script>
   <style>
     .glass { backdrop-filter: blur(10px); }
     .nav-link { position: relative; padding-bottom: .25rem; }
@@ -36,28 +37,100 @@
   <div id="header"></div>
 
   <main class="py-16 md:py-24">
-    <div class="mx-auto max-w-6xl px-4 md:px-6 grid md:grid-cols-2 gap-8">
-      <div>
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Kontakt</h2>
-        <p class="mt-2 text-slate-300">Lass uns über dein Anliegen sprechen.</p>
-        <div class="mt-6 grid gap-3 text-slate-200">
-          <a class="flex items-center gap-2" href="mailto:info@stow301.de">✉ info@stow301.de</a>
-          <a class="flex items-center gap-2" href="tel:+4915730780520">☎ +49 1573 0780520 (WhatsApp)</a>
-          <div class="flex items-center gap-2">📍 Am Hohen Zorn 38, 91301 Forchheim</div>
+    <div class="mx-auto max-w-4xl px-4 md:px-6">
+
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Kontakt</h1>
+        <p class="mt-3 text-slate-400 max-w-xl mx-auto">Hast du eine Frage, eine Idee oder möchtest du mit uns zusammenarbeiten? Meld dich einfach – wir freuen uns!</p>
+      </div>
+
+      <!-- Kontakt-Kacheln nach Anlass -->
+      <div class="grid sm:grid-cols-2 gap-4 mb-10">
+
+        <!-- Allgemeine Anfrage -->
+        <a href="mailto:info@stow301.de?subject=Allgemeine%20Anfrage&body=Hallo%20STOW301-Team%2C%0A%0Aich%20habe%20folgendes%20Anliegen%3A%0A%0A"
+           class="group block rounded-2xl border border-white/10 bg-slate-900/80 hover:border-pink-500/40 hover:bg-slate-900 p-5 transition-all duration-200">
+          <div class="text-2xl mb-3">✉️</div>
+          <div class="font-semibold text-white group-hover:text-pink-300 transition-colors">Allgemeine Anfrage</div>
+          <p class="mt-1 text-sm text-slate-400">Fragen zum Verein, zu unserer Arbeit oder allgemeine Anliegen.</p>
+          <div class="mt-3 text-xs text-pink-400 font-medium">E-Mail schreiben →</div>
+        </a>
+
+        <!-- Kooperation / Partnerschaft -->
+        <a href="mailto:info@stow301.de?subject=Kooperationsanfrage&body=Hallo%20STOW301-Team%2C%0A%0Aich%20w%C3%BCrde%20gerne%20eine%20Zusammenarbeit%20besprechen.%0A%0AUnser%20Angebot%20%2F%20unsere%20Idee%3A%0A%0A"
+           class="group block rounded-2xl border border-white/10 bg-slate-900/80 hover:border-pink-500/40 hover:bg-slate-900 p-5 transition-all duration-200">
+          <div class="text-2xl mb-3">🤝</div>
+          <div class="font-semibold text-white group-hover:text-pink-300 transition-colors">Kooperation & Partnerschaft</div>
+          <p class="mt-1 text-sm text-slate-400">Du möchtest mit uns ein Event planen oder eine Partnerschaft eingehen?</p>
+          <div class="mt-3 text-xs text-pink-400 font-medium">E-Mail schreiben →</div>
+        </a>
+
+        <!-- Künstler / Auftreten -->
+        <a href="mailto:info@stow301.de?subject=Booking-Anfrage&body=Hallo%20STOW301-Team%2C%0A%0Aich%20m%C3%B6chte%20mich%20als%20K%C3%BCnstler%2Fin%20bei%20euch%20vorstellen.%0A%0AName%20%2F%20K%C3%BCnstlername%3A%0AGenre%3A%0ALinks%20(Instagram%2C%20SoundCloud%20etc.)%3A%0A%0A"
+           class="group block rounded-2xl border border-white/10 bg-slate-900/80 hover:border-pink-500/40 hover:bg-slate-900 p-5 transition-all duration-200">
+          <div class="text-2xl mb-3">🎤</div>
+          <div class="font-semibold text-white group-hover:text-pink-300 transition-colors">Booking & Künstler</div>
+          <p class="mt-1 text-sm text-slate-400">Du bist Künstler:in und möchtest bei einem unserer Events auftreten?</p>
+          <div class="mt-3 text-xs text-pink-400 font-medium">E-Mail schreiben →</div>
+        </a>
+
+        <!-- Presse -->
+        <a href="mailto:info@stow301.de?subject=Presseanfrage&body=Hallo%20STOW301-Team%2C%0A%0Aich%20bin%20Journalist%2Fin%20und%20m%C3%B6chte%20%C3%BCber%20STOW301%20berichten.%0A%0AMedium%3A%0AThema%3A%0A%0A"
+           class="group block rounded-2xl border border-white/10 bg-slate-900/80 hover:border-pink-500/40 hover:bg-slate-900 p-5 transition-all duration-200">
+          <div class="text-2xl mb-3">📰</div>
+          <div class="font-semibold text-white group-hover:text-pink-300 transition-colors">Presse & Medien</div>
+          <p class="mt-1 text-sm text-slate-400">Presseanfragen, Interviews oder Berichterstattung über STOW301.</p>
+          <div class="mt-3 text-xs text-pink-400 font-medium">E-Mail schreiben →</div>
+        </a>
+
+      </div>
+
+      <!-- Direkte Kontaktmöglichkeiten -->
+      <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-6">
+        <h2 class="text-base font-semibold text-white mb-5">Direkt erreichbar</h2>
+        <div class="grid sm:grid-cols-3 gap-4 text-sm">
+
+          <a href="mailto:info@stow301.de"
+             class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group">
+            <span class="text-xl">✉️</span>
+            <div>
+              <div class="text-slate-400 text-xs mb-0.5">E-Mail</div>
+              <div class="text-white group-hover:text-pink-300 transition-colors">info@stow301.de</div>
+            </div>
+          </a>
+
+          <a href="https://www.instagram.com/stow.301/" target="_blank" rel="noreferrer"
+             class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group">
+            <span class="text-xl">📸</span>
+            <div>
+              <div class="text-slate-400 text-xs mb-0.5">Instagram</div>
+              <div class="text-white group-hover:text-pink-300 transition-colors">@stow.301</div>
+            </div>
+          </a>
+
+          <a href="tel:+4915730780520"
+             class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group">
+            <span class="text-xl">📱</span>
+            <div>
+              <div class="text-slate-400 text-xs mb-0.5">Telefon / WhatsApp</div>
+              <div class="text-white group-hover:text-pink-300 transition-colors">+49 1573 0780520</div>
+            </div>
+          </a>
+
         </div>
       </div>
-<div class="mt-8 rounded-3xl shadow-sm bg-slate-900 border border-white/10 p-6 text-center">
-  <a
-    class="inline-flex items-center justify-center px-5 py-3 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white"
-    href="mailto:info@stow301.de?subject=Kontaktanfrage%20%C3%BCber%20Website&body=Name%3A%20%0AE-Mail%3A%20%0ANachricht%3A%20">
-    E-Mail senden
-  </a>
-  <p class="text-xs text-slate-400 mt-3">Wir melden uns schnellstmöglich zurück.</p>
-</div>
-</div>
+
+      <!-- Hinweis Datenschutz -->
+      <p class="mt-6 text-center text-xs text-slate-500">
+        Wir verwenden kein Kontaktformular – deine E-Mail wird direkt über deinen eigenen E-Mail-Client gesendet. Es werden keine Daten durch uns vorverarbeitet oder gespeichert.
+      </p>
+
+    </div>
   </main>
 
   <div id="footer"></div>
-  <script src="./assets/site.js?v=22"></script>
+  <script src="/assets/events.js?v=25"></script>
+  <script src="/assets/site.js?v=16"></script>
 </body>
 </html>
