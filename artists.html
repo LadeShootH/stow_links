@@ -3,20 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Artists & Bands – STOW301 e.V.</title>
+  <title>Künstlerförderung – STOW301 e.V.</title>
+  <meta name="description" content="STOW301 e.V. fördert Künstler:innen und Bands aus der Region – mit fairen Slots, professionellem Umfeld und einer offenen Community in Forchheim.">
   <meta name="theme-color" content="#0b1020"/>
-  <meta property="og:url" content="https://stow301.de/artists"></meta>
-	<meta property="og:title" content="STOW301 e.V. - Künstlerförderung"></meta>
-	<meta property="og:description" content="Was kann STOW301 e.V. Künstler*innen bieten?"></meta>
-	<meta property="og:image" content="https://stow301.de/images/Icon.png"></meta>
-	<meta property="og:type" content="website" />
+  <link rel="canonical" href="https://stow301.de/artists.html">
+  <meta property="og:url" content="https://stow301.de/artists.html">
+  <meta property="og:title" content="Künstlerförderung – STOW301 e.V.">
+  <meta property="og:description" content="STOW301 e.V. fördert Künstler:innen und Bands aus der Region – mit fairen Slots, professionellem Umfeld und einer offenen Community in Forchheim.">
+  <meta property="og:image" content="https://stow301.de/images/Icon.png">
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Künstlerförderung – STOW301 e.V.">
+  <meta name="twitter:description" content="STOW301 e.V. fördert Künstler:innen und Bands aus der Region – faire Slots, professionelles Umfeld, offene Community.">
+  <meta name="twitter:image" content="https://stow301.de/images/Icon.png">
+  <link rel="icon" type="image/png" href="images/Icon.png">
 
-	<link rel="icon" type="image/png" href="images/Icon.png">
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { theme: { extend: {} } }
-  </script>
+  <script src="/assets/tailwind.js"></script>
+  <script>tailwind.config = { theme: { extend: {} } }</script>
   <style>
     .glass { backdrop-filter: blur(10px); }
     .nav-link { position: relative; padding-bottom: .25rem; }
@@ -35,17 +38,18 @@
 
   <main class="py-16 md:py-24">
     <div class="mx-auto max-w-6xl px-4 md:px-6">
+
       <header class="text-center max-w-3xl mx-auto">
         <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Artists & Bands</h1>
         <p class="mt-3 text-slate-300">
-          Wir fördern Künstler*innen und Bands aus der Region - mit fairen Slots, professionellem Umfeld und einer offenen Community.
+          Wir fördern Künstler:innen und Bands aus der Region – mit fairen Slots, professionellem Umfeld und einer offenen Community.
         </p>
       </header>
 
       <section class="mt-10 grid gap-6 md:grid-cols-2">
         <article class="rounded-3xl border border-white/10 bg-slate-900 p-6">
           <h2 class="text-xl font-semibold text-white">Für wen ist das?</h2>
-          <p class="mt-2 text-slate-300">Newcomer, semi-professionelle Acts und lokale Szene-Artists - egal ob Band, DJ, Solo.</p>
+          <p class="mt-2 text-slate-300">Newcomer, semi-professionelle Acts und lokale Szene-Artists – egal ob Band, DJ oder Solo.</p>
           <ul class="mt-4 grid gap-2 text-slate-200">
             <li class="flex items-start gap-2"><span class="text-pink-500">✔</span> Eigene Songs oder starke DJ-Setlists</li>
             <li class="flex items-start gap-2"><span class="text-pink-500">✔</span> Motivation, Bühnen-Erfahrung zu sammeln</li>
@@ -64,28 +68,33 @@
         </article>
       </section>
 
-      <section class="mt-10 rounded-3xl border border-white/10 bg-gradient-to-br from-pink-900/30 via-fuchsia-900/20 to-slate-900 p-6">
-        <h2 class="text-xl font-semibold text-white">Fachwerk Festival (Newcomer-Reihe)</h2>
+      <section class="mt-6 rounded-3xl border border-white/10 bg-gradient-to-br from-pink-900/30 via-fuchsia-900/20 to-slate-900 p-6">
+        <h2 class="text-xl font-semibold text-white">Fachwerk Festival <span class="text-sm font-normal text-pink-400 ml-1">Newcomer-Reihe</span></h2>
         <p class="mt-2 text-slate-300">
-          Für Newcomer veranstalten wir das <strong>Fachwerk Festival</strong> - aktuell als eintägiges bzw. abendfüllendes Format.
+          Für Newcomer veranstalten wir das <strong class="text-white">Fachwerk Festival</strong> – aktuell als eintägiges bzw. abendfüllendes Format.
           Hier geben wir neuen Acts eine Bühne, vernetzen euch mit der Community und schaffen professionelle Rahmenbedingungen.
         </p>
+        <a href="event.html?id=fachwerk-festival-2026"
+           class="inline-flex items-center gap-1.5 mt-4 text-sm text-pink-400 hover:text-pink-300 transition-colors">
+          Zum Fachwerk Festival 2026 →
+        </a>
       </section>
 
-      <section class="mt-10 text-center">
-        <a
-          href="mailto:artist@stow301.de?subject=Artist%20Anfrage&body=Name%20Act%3A%20%0AGenre%3A%20%0ALinks%20(Instagram%2C%20Streaming)%3A%20%0ATechnik-Infos%3A%20%0AKurze%20Vorstellung%3A%20"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white text-lg font-medium transition-all duration-200"
-        >
-          Anfrage per E-Mail
+      <section class="mt-10 rounded-2xl border border-white/10 bg-slate-900/60 p-6 text-center">
+        <h2 class="text-lg font-semibold text-white mb-1">Interesse? Meld dich bei uns.</h2>
+        <p class="text-sm text-slate-400 mb-5">Schick uns gerne Links zu deinen Songs, deinem SoundCloud-Profil oder Instagram – wir melden uns zeitnah.</p>
+        <a href="mailto:info@stow301.de?subject=Booking-Anfrage&body=Hallo%20STOW301-Team%2C%0A%0Aich%20m%C3%B6chte%20mich%20als%20K%C3%BCnstler%2Fin%20bei%20euch%20vorstellen.%0A%0AName%20%2F%20K%C3%BCnstlername%3A%0AGenre%3A%0ALinks%20(Instagram%2C%20SoundCloud%2C%20etc.)%3A%0A%0AKurze%20Beschreibung%3A%0A%0AViele%20Gr%C3%BC%C3%9Fe"
+           class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white text-base font-medium transition-colors">
+          ✉ Booking-Anfrage senden
         </a>
-        <p class="text-sm text-slate-400 mt-3">Schick uns gern Links zu deinen Songs/Profilen.</p>
+        <p class="text-xs text-slate-500 mt-3">Der Klick öffnet deinen E-Mail-Client mit vorausgefülltem Formular.</p>
       </section>
+
     </div>
   </main>
 
   <div id="footer"></div>
-  <script src="/assets/events.js?v=1"></script>
-  <script src="./assets/site.js?v=26"></script>
+  <script src="/assets/events.js?v=25"></script>
+  <script src="/assets/site.js?v=16"></script>
 </body>
 </html>
