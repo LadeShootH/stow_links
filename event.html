@@ -3,26 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!-- Titel, description, OG und Twitter werden dynamisch per site.js gesetzt -->
+<!-- Titel, description, OG, Twitter und canonical werden dynamisch per site.js gesetzt -->
 <title>Event – STOW301 e.V.</title>
 <meta name="description" content="Event-Details von STOW301 e.V. – Kulturverein aus Forchheim.">
 <meta name="theme-color" content="#0b1020"/>
 
-<!-- Open Graph (Fallback, wird per JS überschrieben) -->
-<meta property="og:url" content="https://stow301.de/events.html">
-<meta property="og:title" content="STOW301 e.V. – Events">
-<meta property="og:description" content="Entdecke Events von STOW301 e.V. aus Forchheim.">
+<!-- Open Graph Fallback (wird per JS pro Event überschrieben) -->
+<meta property="og:url" content="https://stow301.de/event.html">
+<meta property="og:title" content="Event – STOW301 e.V.">
+<meta property="og:description" content="Event-Details von STOW301 e.V. – Kulturverein aus Forchheim.">
 <meta property="og:image" content="https://stow301.de/images/Icon.png">
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
 
-<!-- Twitter Card (Fallback, wird per JS überschrieben) -->
+<!-- Twitter Card Fallback (wird per JS pro Event überschrieben) -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="STOW301 e.V. – Events">
-<meta name="twitter:description" content="Entdecke Events von STOW301 e.V. aus Forchheim.">
+<meta name="twitter:title" content="Event – STOW301 e.V.">
+<meta name="twitter:description" content="Event-Details von STOW301 e.V. – Kulturverein aus Forchheim.">
 <meta name="twitter:image" content="https://stow301.de/images/Icon.png">
 
 <link rel="icon" type="image/png" href="images/Icon.png">
-<script src="https://cdn.tailwindcss.com"></script>
+<script src="/assets/tailwind.js"></script>
 <script>
   tailwind.config = { theme: { extend: { } } }
 </script>
@@ -48,7 +48,7 @@
   </div>
 </main>
 <div id="footer"></div>
-<script src="/assets/events.js?v=27"></script>
+<script src="/assets/events.js?v=25"></script>
 <script src="/assets/site.js?v=16"></script>
 </body>
 </html>
