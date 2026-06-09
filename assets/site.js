@@ -16,7 +16,9 @@ const USE_BACKEND = false;
 const BACKEND = {
   contact: "/api/contact",
   join: "/api/join",
-  recaptchaVerify: "/api/recaptcha-verify",
+  // hCaptcha statt Google reCAPTCHA (DSGVO-konform, EU-Server)
+  // Anleitung: https://docs.hcaptcha.com/
+  captchaVerify: "/api/hcaptcha-verify",
 };
 
 // ====== Utils ======
@@ -207,7 +209,10 @@ function setCanonical(url) {
 
 function setEventPageSEO(e) {
   const title = `${e.title} – STOW301 e.V.`;
-  const desc = `${e.title} am ${fmtDate(e.date)} in ${e.venue || "Forchheim"}${e.music ? " · " + e.music : ""} – von STOW301 e.V.`;
+  // description des Events bevorzugen, sonst automatisch generieren; max 155 Zeichen
+  const autoDesc = `${e.title} am ${fmtDate(e.date)} in ${e.venue || "Forchheim"}${e.music ? " · " + e.music : ""} – von STOW301 e.V.`;
+  const rawDesc = e.description || autoDesc;
+  const desc = rawDesc.length > 155 ? rawDesc.slice(0, 152) + "…" : rawDesc;
   const image = e.cover || "https://stow301.de/images/Icon.png";
   const url = `https://stow301.de/event.html?id=${encodeURIComponent(e.id)}`;
 
@@ -220,7 +225,7 @@ function setEventPageSEO(e) {
   setMetaTag("og:description", desc, true);
   setMetaTag("og:image", image, true);
   setMetaTag("og:url", url, true);
-  setMetaTag("og:type", "website", true);
+  setMetaTag("og:type", "article", true); // "article" besser als "website" für Event-Detailseiten
 
   // Twitter Card
   setMetaTag("twitter:card", "summary_large_image");
@@ -320,7 +325,7 @@ function initHome() {
   if (featured) {
     qs("#home-featured-event").innerHTML = eventCardHTML(featured, !nextEvent);
     qs("#home-event-title").textContent = nextEvent ? "Nächstes Event" : "Letztes Event";
-    injectJSONLD(featured);
+    // Kein JSON-LD hier – die kanonische Seite für das Event ist event.html?id=...
   } else {
     qs("#home-featured-event").innerHTML = `<div class="text-center text-slate-400">Aktuell keine Events.</div>`;
   }
@@ -356,6 +361,16 @@ function initEventDetail() {
   const id = params.get("id");
   const e = EVENTS.find(x => x.id === id);
   const root = qs("#event-detail");
+  const today = new Date(); today.setHours(0,0,0,0);
+  const isPast = e ? parseDate(endDateOf(e)) < today : false;
+
+  // Vergangene Events: noindex damit Google sie nicht prominent rankt
+  // (sie bleiben aber verlinkbar und crawlbar)
+  if (isPast) {
+    let robots = document.querySelector('meta[name="robots"]');
+    if (!robots) { robots = document.createElement("meta"); robots.name = "robots"; document.head.appendChild(robots); }
+    robots.content = "noindex, follow";
+  }
 
   if (!e) {
     root.innerHTML = `
@@ -374,8 +389,6 @@ function initEventDetail() {
   injectJSONLD(e);
 
   const maps = buildMapsLink(e);
-  const today = new Date(); today.setHours(0,0,0,0);
-  const isPast = e.date ? parseDate(endDateOf(e)) < today : false;
   const rating = e.stats && typeof e.stats.rating === "number" ? Math.max(0, Math.min(5, e.stats.rating)) : null;
   const status = ticketStatus(e, isPast);
 
@@ -484,6 +497,7 @@ function initJoin() {
 
   const note = qs("#join-upload-note");
   let captchaToken = "";
+  // hCaptcha-Callback (im HTML: data-callback="onJoinCaptcha")
   window.onJoinCaptcha = (token) => { captchaToken = token; };
 
   form.addEventListener("change", () => {
@@ -526,6 +540,7 @@ function initContact() {
   renderHeader("contact"); renderFooter();
   const form = qs("#contact-form");
   let captchaToken = "";
+  // hCaptcha-Callback (im HTML: data-callback="onContactCaptcha")
   window.onContactCaptcha = (token) => { captchaToken = token; };
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
