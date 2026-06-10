@@ -15,7 +15,7 @@
 @media (min-width: 768px) {
   .heading-brand {
     text-shadow:
-      -2px 2px 0px #ff0098,
-      -4px 4px 0px #00fd2e;
+      -1px 1px 0px #ff0098,
+      -2px 2px 0px #00fd2e;
   }
 }
