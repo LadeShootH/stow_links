@@ -402,7 +402,7 @@ function initEventDetail() {
         <div class="absolute inset-0 bg-black/50"></div>
         <div class="absolute inset-0 flex items-center justify-center text-center px-6">
           <div>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-white drop-shadow-lg">${e.title}</h1>
+            <h1 class="heading-brand text-3xl md:text-5xl text-white drop-shadow-lg">${e.title}</h1>
             ${e.music ? `<p class="mt-3 text-slate-200">${e.music}</p>` : ""}
             <div class="mt-4 flex items-center justify-center gap-3 flex-wrap">
               ${statusPill(e, isPast)}
