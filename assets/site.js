@@ -16,9 +16,6 @@ const USE_BACKEND = false;
 const BACKEND = {
   contact: "/api/contact",
   join: "/api/join",
-  // hCaptcha statt Google reCAPTCHA (DSGVO-konform, EU-Server)
-  // Anleitung: https://docs.hcaptcha.com/
-  captchaVerify: "/api/hcaptcha-verify",
 };
 
 // ====== Utils ======
@@ -497,9 +494,6 @@ function initJoin() {
   if (!form) return;
 
   const note = qs("#join-upload-note");
-  let captchaToken = "";
-  // hCaptcha-Callback (im HTML: data-callback="onJoinCaptcha")
-  window.onJoinCaptcha = (token) => { captchaToken = token; };
 
   form.addEventListener("change", () => {
     const hasFiles = (form.elements["files"] && form.elements["files"].files && form.elements["files"].files.length > 0);
@@ -510,10 +504,8 @@ function initJoin() {
     e.preventDefault();
     const fd = new FormData(form);
     if (!fd.get("accept")) return alert("Bitte akzeptiere die Ordnungen.");
-    if (!captchaToken) return alert("Bitte reCAPTCHA bestätigen.");
 
     if (USE_BACKEND) {
-      fd.append("recaptcha", captchaToken);
       try {
         const res = await fetch(BACKEND.join, { method: "POST", body: fd });
         if (!res.ok) throw new Error("failed");
@@ -540,19 +532,16 @@ ${fd.get("motivation") || ""}`;
 function initContact() {
   renderHeader("contact"); renderFooter();
   const form = qs("#contact-form");
-  let captchaToken = "";
-  // hCaptcha-Callback (im HTML: data-callback="onContactCaptcha")
-  window.onContactCaptcha = (token) => { captchaToken = token; };
+  if (!form) return;
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const fd = new FormData(form);
-    if (!captchaToken) return alert("Bitte reCAPTCHA bestätigen.");
     if (USE_BACKEND) {
       try {
         const res = await fetch(BACKEND.contact, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ first: fd.get("first"), last: fd.get("last"), email: fd.get("email"), message: fd.get("message"), recaptcha: captchaToken })
+          body: JSON.stringify({ first: fd.get("first"), last: fd.get("last"), email: fd.get("email"), message: fd.get("message") })
         });
         if (!res.ok) throw new Error("failed");
         alert("Nachricht gesendet.");
