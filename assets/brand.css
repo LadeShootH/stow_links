@@ -1,6 +1,6 @@
 /* assets/brand.css
    STOW301 Branding – Glitch-Effekt für H1-Überschriften
-   Beide Schatten nach links-unten versetzt: erst Pink, dann Grün/Cyan
+   Beide Schatten nach links-unten versetzt: erst Pink, dann Grün
    ------------------------------------------------------------------ */
 
 .heading-brand {
@@ -8,14 +8,14 @@
   letter-spacing: -0.02em;
   color: #ffffff;
   text-shadow:
-    -3px 3px 0px rgba(236, 72, 153, 0.90),    /* Pink, links-unten */
-    -6px 6px 0px rgba(0, 255, 140, 0.85);      /* Grün, links-unten, doppelter Abstand */
+    -2px 2px 0px #ff0098,    /* Pink, links-unten */
+    -4px 4px 0px #00fd2e;    /* Grün, links-unten, doppelter Abstand */
 }
 
 @media (min-width: 768px) {
   .heading-brand {
     text-shadow:
-      -4px 4px 0px rgba(236, 72, 153, 0.90),
-      -8px 8px 0px rgba(0, 255, 140, 0.85);
+      -2px 2px 0px #ff0098,
+      -4px 4px 0px #00fd2e;
   }
 }
