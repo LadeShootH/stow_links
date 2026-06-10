@@ -8,8 +8,8 @@
   letter-spacing: -0.02em;
   color: #ffffff;
   text-shadow:
-    -2px 2px 0px #ff0098,    /* Pink, links-unten */
-    -4px 4px 0px #00fd2e;    /* Grün, links-unten, doppelter Abstand */
+    -1px 1px 0px #ff0098,    /* Pink, links-unten */
+    -2px 2px 0px #00fd2e;    /* Grün, links-unten, doppelter Abstand */
 }
 
 @media (min-width: 768px) {
