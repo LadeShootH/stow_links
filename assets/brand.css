@@ -1,0 +1,25 @@
+/* assets/brand.css
+   STOW301 Branding – Glitch-Effekt für H1-Überschriften
+   Passend zum Logo: versetzte Cyan- und Pink-Schichten auf weißem Text
+   ------------------------------------------------------------------ */
+
+.heading-brand {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  /* Glitch: Cyan-Schicht links oben, Pink-Schicht rechts unten */
+  text-shadow:
+    -2px -2px 0px rgba(0, 229, 255, 0.75),   /* Cyan oben-links  */
+     2px  2px 0px rgba(236, 72, 153, 0.70),   /* Pink unten-rechts */
+     0px  0px 20px rgba(236, 72, 153, 0.15);  /* Subtiles Pink-Glühen */
+}
+
+/* Etwas stärkerer Effekt auf großen Bildschirmen */
+@media (min-width: 768px) {
+  .heading-brand {
+    text-shadow:
+      -3px -2px 0px rgba(0, 229, 255, 0.80),
+       3px  2px 0px rgba(236, 72, 153, 0.75),
+       0px  0px 30px rgba(236, 72, 153, 0.15);
+  }
+}
