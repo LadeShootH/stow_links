@@ -40,9 +40,9 @@ window.EVENTS = [
     venue: "Junges Theater Forchheim",
     address: "https://maps.app.goo.gl/Q9Y1NRGs73UgKjhW7",
     music: "Indie, Pop, Rock",
-    // description: max. 155 Zeichen für Google
+    ticketsUrl: "https://fachwerkfestival.de/",
     description: "Newcomer Festival in Forchheim – Bands auf der Bühne, Jury-Voting und Livemusik im Jungen Theater Forchheim.",
-    cover: "", // Tipp: 1200×630px Bild hochladen für Social Sharing
+    cover: "https://stow301.de/images/events/Fachwerk-Logo.png",
     longDescription: `Das Fachwerk Festival findet am 12. September im Jungen Theater Forchheim statt. 🩷 
 Es bietet Newcomer-Bands eine Plattform, um sich Forchheims Undergroundfans zu präsentieren.
 Zum Abschluss der Veranstaltung findet ein Voting statt, bei dem Du gemeinsam mit einer Jury entscheidest, welche Band am stärksten war und den Hauptpreis verdient hat!
@@ -111,6 +111,7 @@ Großes Danke an Möbel Fischer für diese krasse Location 🫶🏼`,
     address: "",
     music: "Indie, Pop, Rock, Metal",
     description: "Jugendfestival Forchheim 2026 – Newcomer-Bands, Beats und Spaß ab 16 im KulturSommerQuartier.",
+    ticketsUrl: "https://www.unser-ferienprogramm.de/forchheim/veranstaltung.php?id=304621",
     cover: "https://stow301.de/images/events/fostival2026.jpg",
     longDescription: `Das FOstival kommt zurück – frischer, lauter und jetzt für alle ab 16! 
 Freu dich auf coole Beats, spannende Acts und jede Menge Spaß mit Leuten, die genauso feiern wie du. 
